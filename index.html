@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Science Adventure - 1st to 2nd Grade Level</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#43cea2 0%,,#185a9d 50%,,#43cea2 100%);min-height:100vh;padding:16px}
+.wrap{max-width:720px;margin:0 auto}
+
+/* Top Bar */
+.topbar{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.3);border-radius:16px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;position:sticky;top:8px;z-index:100}
+.topbar-title{font-size:1.15rem;font-weight:900;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3)}
+.topbar-btns{display:flex;gap:8px;flex-wrap:wrap}
+.tb-btn{padding:6px 14px;border:none;border-radius:20px;font-weight:800;font-size:0.8rem;cursor:pointer;transition:transform 0.1s}
+.tb-btn:hover{transform:scale(1.05)}
+.tb-save{background:#FFD93D;color:#2D3561}
+.tb-load{background:#6BCB77;color:#fff}
+.tb-lbl{font-size:0.72rem;color:rgba(255,255,255,0.7)}
+
+/* Screens */
+.screen{display:none}
+.screen.active{display:block}
+
+/* Home Screen */
+.home-hero{text-align:center;padding:20px 0 14px}
+.home-hero h1{font-size:2.2rem;font-weight:900;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,0.3)}
+.home-hero p{color:rgba(255,255,255,0.85);font-size:0.95rem;margin-top:6px}
+
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:14px}
+.menu-card{background:#fff;border-radius:20px;padding:22px 16px;text-align:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.15);transition:transform 0.15s,box-shadow 0.15s;border:3px solid transparent}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.2)}
+.menu-card.chemistry{border-color:#FF6B6B}
+.menu-card.physics{border-color:#4ECDC4}
+.menu-card.biology{border-color:#96CEB4}
+.menu-card.earth{border-color:#FFD93D}
+.mc-icon{font-size:2.4rem;margin-bottom:10px}
+.mc-name{font-weight:900;font-size:1rem;color:#2D3561;margin-bottom:6px}
+.mc-desc{font-size:0.78rem;color:#666;line-height:1.4}
+.mc-badge{display:inline-block;margin-top:10px;background:#6c5ce7;color:#fff;border-radius:14px;padding:3px 12px;font-size:0.72rem;font-weight:800}
+
+/* Progress Chart */
+.progress-chart{background:#fff;border-radius:12px;padding:15px;margin-top:15px;text-align:left}
+.progress-bar-cont{background:#e0e0e0;border-radius:10px;height:20px;margin:8px 0}
+.progress-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,#43cea2,#185a9d);width:0%}
+.progress-stats{display:flex;justify-content:space-between;margin-top:8px;font-size:0.85rem;color:#2D3561}
+
+/* Levels Screen */
+.levels-wrap{background:rgba(255,255,255,0.95);border-radius:20px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);margin-top:12px}
+.levels-title{font-size:1.3rem;font-weight:900;color:#2D3561;margin-bottom:16px;text-align:center}
+.levels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.lv-btn{background:linear-gradient(135deg,#74b9ff,#0984e3);color:#fff;border:none;border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;font-weight:800;font-size:0.85rem;transition:transform 0.15s;position:relative}
+.lv-btn:hover:not(.locked){transform:translateY(-3px)}
+.lv-btn.locked{background:#dfe6e9;color:#aaa;cursor:not-allowed}
+.lv-btn.done{background:linear-gradient(135deg,#00cec9,#00a085)}
+.lv-icon{font-size:1.6rem;display:block;margin-bottom:4px}
+.lv-score{font-size:0.68rem;opacity:0.85;margin-top:3px}
+.lv-lock{position:absolute;top:6px;right:6px;font-size:1rem}
+.badge-1{background:#FF6B6B}.badge-2{background:#4ECDC4}.badge-3{background:#96CEB4}.badge-4{background:#FFD93D}
+
+/* Quiz Screen */
+.quiz-head{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.quiz-meta{display:flex;justify-content:space-between;font-size:0.82rem;color:#666;margin-bottom:8px}
+.quiz-score-row{display:flex;gap:14px}
+.qs-item{text-align:center;flex:1}
+.qs-label{font-size:0.7rem;color:#888}
+.qs-val{font-size:1.3rem;font-weight:900;color:#2D3561}
+.prog-bar{background:#e0e0e0;border-radius:8px;height:10px;margin-top:8px}
+.prog-fill{height:100%;border-radius:8px;transition:width 0.4s;background:linear-gradient(90deg,#43cea2,#185a9d)}
+
+/* Question Cards */
+.q-card{background:#fff;border-radius:20px;padding:22px;box-shadow:0 6px 24px rgba(0,0,0,0.1);margin-bottom:12px;border-top:5px solid #43cea2;position:relative;overflow:hidden}
+.q-type-badge{display:inline-block;background:#43cea2;color:#fff;border-radius:14px;padding:3px 12px;font-size:0.72rem;font-weight:800;margin-bottom:10px}
+.q-text{font-size:1.1rem;font-weight:700;color:#2D3561;line-height:1.55;margin-bottom:12px}
+.q-fact{background:#e8f4fd;border-left:4px solid #74b9ff;border-radius:8px;padding:12px 14px;font-size:0.95rem;color:#2D3561;line-height:1.65;margin-bottom:12px}
+.science-word{font-size:2rem;font-weight:900;color:#185a9d;text-align:center;margin:10px 0}
+.science-emoji{font-size:3rem;display:block;text-align:center;margin:10px 0}
+
+/* Experiment Visuals */
+.experiment-box{background:#f0f0f0;border:2px dashed #43cea2;border-radius:12px;padding:15px;margin:10px 0;text-align:center}
+.beaker{font-size:3rem;display:inline-block;animation:swirl 3s infinite}
+@keyframes swirl{0%{transform:rotate(0deg)}50%{transform:rotate(5deg)}100%{transform:rotate(0deg)}}
+.magnet-line{display:flex;justify-content:center;gap:10px;margin:10px 0}
+.magnet-item{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.attracted{background:#4ECDC4;color:#fff}
+.not-attracted{background:#FF6B6B;color:#fff}
+.planet-orbit{position:relative;width:100%;height:150px;margin:20px 0}
+.sun{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:#FFD93D;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.earth-orbit{position:absolute;top:50%;left:50%;width:100px;height:100px;border:2px dashed #74b9ff;border-radius:50%;transform:translate(-50%,-50%);animation:orbit 5s infinite linear}
+@keyframes orbit{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* Options */
+.options{display:grid;gap:10px;margin-top:10px}
+.options.two-col{grid-template-columns:1fr 1fr}
+.opt-btn{background:#fff;border:2px solid #b0b8d0;border-radius:12px;padding:14px 16px;font-size:0.95rem;font-weight:600;color:#2D3561;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:all 0.15s;width:100%}
+.opt-btn:hover:not(:disabled){border-color:#43cea2;background:#e8f8f0;transform:translateX(3px)}
+.opt-btn:disabled{cursor:not-allowed;opacity:0.75}
+.opt-btn.correct{background:#d4edda;border-color:#6BCB77;color:#155724}
+.opt-btn.wrong{background:#f8d7da;border-color:#FC5C65;color:#721c24}
+.opt-letter{width:32px;height:32px;border-radius:50%;background:#43cea2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;flex-shrink:0}
+.opt-btn.correct .opt-letter{background:#6BCB77}
+.opt-btn.wrong .opt-letter{background:#FC5C65}
+
+/* Feedback Elements */
+.feedback{border-radius:12px;padding:12px 16px;font-weight:800;font-size:0.95rem;margin:10px 0;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#d4edda;border:2px solid #6BCB77;color:#155724}
+.feedback.bad{background:#f8d7da;border:2px solid #FC5C65;color:#721c24}
+.explanation{background:#FFF9C4;border:2px dashed #FFD93D;border-radius:12px;padding:12px 16px;font-size:0.88rem;color:#7a5c00;font-weight:700;margin:8px 0;display:none}
+.explanation.show{display:block}
+.hint-box{background:#e3f2fd;border-left:4px solid #2196f3;border-radius:8px;padding:10px 14px;font-size:0.88rem;color:#1565c0;font-weight:700;margin:8px 0;display:none}
+.hint-box.show{display:block}
+
+/* Buttons */
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{padding:11px 18px;border:none;border-radius:12px;font-weight:900;font-size:0.9rem;cursor:pointer;transition:transform 0.1s,box-shadow 0.1s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.btn-check{background:#43cea2;color:#fff;flex:1}
+.btn-next{background:#185a9d;color:#fff;flex:1;display:none}
+.btn-hint{background:#FFD93D;color:#2D3561}
+.btn-back{background:#e0e0e0;color:#555}
+.btn-fun{background:#FF6B6B;color:#white;font-size:1.2rem}
+
+/* Result Screen */
+.result-card{background:#fff;border-radius:20px;padding:28px;text-align:center;box-shadow:0 8px 28px rgba(0,0,0,0.15);margin-top:12px}
+.result-emoji{font-size:4rem;margin-bottom:10px}
+.result-title{font-size:1.8rem;font-weight:900;color:#2D3561;margin-bottom:8px}
+.result-pct{font-size:3rem;font-weight:900;margin:8px 0}
+.result-stars{font-size:2rem;margin:8px 0}
+.result-msg{background:#f8f9fa;border-radius:12px;padding:14px;font-size:0.92rem;color:#555;font-weight:700;margin:12px 0;line-height:1.5}
+.mistake-section{text-align:left;margin:12px 0}
+.mistake-title{font-weight:900;color:#FC5C65;margin-bottom:8px;font-size:0.95rem}
+.mistake-item{background:#fff5f5;border:2px solid #ffcdd2;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:0.85rem}
+.mi-q{font-weight:800;color:#c62828}
+.mi-exp{color:#555;margin-top:3px}
+
+/* Fun Facts */
+.fun-fact{background:#fff;border-radius:12px;padding:12px;margin:10px 0;border-left:5px solid #FF6B6B;font-size:0.95rem;color:#2D3561}
+.fun-fact-icon{font-size:1.5rem;margin-right:8px}
+
+@media(max-width:480px){
+  .two-col{grid-template-columns:1fr}
+  .home-hero h1{font-size:1.7rem}
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-title">🔬 Science Adventure</div>
+  <div class="topbar-btns">
+    <button class="tb-btn tb-save" onclick="saveProgress()">💾 Save</button>
+    <button class="tb-btn tb-load" onclick="loadProgress()">📂 Load</button>
+    <input type="file" id="loadFile" accept=".json" style="display:none" onchange="loadFile(event)">
+  </div>
+  <div class="tb-lbl" id="saveLbl">No saves yet</div>
+</div>
+
+<!-- HOME SCREEN -->
+<div class="screen active" id="homeScreen">
+  <div class="home-hero">
+    <h1>🔬 Science Adventure</h1>
+    <p>Explore Chemistry, Physics, Biology, and Earth Science!</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card chemistry" onclick="openCategory('chemistry')">
+      <div class="mc-icon">🧪</div>
+      <div class="mc-name">Chemistry</div>
+      <div class="mc-desc">Atoms, molecules, and amazing reactions!</div>
+      <div class="mc-badge">5 Levels</div>
+    </div>
+    <div class="menu-card physics" onclick="openCategory('physics')">
+      <div class="mc-icon">⚡</div>
+      <div class="mc-name">Physics</div>
+      <div class="mc-desc">Forces, energy, and how things move!</div>
+      <div class="mc-badge">5 Levels</div>
+    </div>
+    <div class="menu-card biology" onclick="openCategory('biology')">
+      <div class="mc-icon">🌱</div>
+      <div class="mc-name">Biology</div>
+      <div class="mc-desc">Living things, plants, animals, and YOU!</div>
+      <div class="mc-badge">5 Levels</div>
+    </div>
+    <div class="menu-card earth" onclick="openCategory('earth')">
+      <div class="mc-icon">🌍</div>
+      <div class="mc-name">Earth Science</div>
+      <div class="mc-desc">Our planet, space, weather, and rocks!</div>
+      <div class="mc-badge">5 Levels</div>
+    </div>
+  </div>
+  <div class="progress-chart" id="progressChart"></div>
+</div>
+
+<!-- LEVELS SCREEN -->
+<div class="screen" id="levelsScreen">
+  <div class="levels-wrap">
+    <div class="levels-title" id="levelsTitle">Choose a Level</div>
+    <div class="levels-grid" id="levelsGrid"></div>
+    <div style="margin-top:14px;text-align:center">
+      <button class="btn btn-back" onclick="showHome()">← Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div class="screen" id="quizScreen">
+  <div class="quiz-head">
+    <div class="quiz-meta">
+      <span id="quizLabel">Chemistry • Level 1</span>
+      <span id="quizQNum">Q 1 / 10</span>
+    </div>
+    <div class="quiz-score-row">
+      <div class="qs-item"><div class="qs-label">Correct</div><div class="qs-val" id="qsCorrect">0</div></div>
+      <div class="qs-item"><div class="qs-label">Wrong</div><div class="qs-val" id="qsWrong">0</div></div>
+      <div class="qs-item"><div class="qs-label">Accuracy</div><div class="qs-val" id="qsAcc">—</div></div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+  <div class="q-card" id="qCard"></div>
+  <div class="hint-box" id="hintBox"></div>
+  <div class="feedback" id="feedback"></div>
+  <div class="explanation" id="explanation"></div>
+  <div class="btn-row">
+    <button class="btn btn-back" onclick="leaveQuiz()">← Home</button>
+    <button class="btn btn-hint" id="hintBtn" onclick="showHint()">💡 Hint</button>
+    <button class="btn btn-fun" id="funFactBtn" onclick="showFunFact()" style="display:none">🎉 Fun Fact</button>
+    <button class="btn btn-check" id="checkBtn" onclick="checkAnswer()">✅ Check</button>
+    <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">▶ Next</button>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="screen" id="resultScreen">
+  <div class="result-card">
+    <div class="result-emoji" id="resEmoji"></div>
+    <div class="result-title" id="resTitle"></div>
+    <div class="result-pct" id="resPct"></div>
+    <div class="result-stars" id="resStars"></div>
+    <div class="result-msg" id="resMsg"></div>
+    <div class="mistake-section" id="mistakeSection"></div>
+    <div class="btn-row" style="justify-content:center;margin-top:16px">
+      <button class="btn btn-back" id="retryBtn">🔁 Try Again</button>
+      <button class="btn btn-check" onclick="showHome()">🏠 Home</button>
+      <button class="btn btn-next" id="nextLvBtn" style="display:none">➡ Next Level</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// DYNAMIC SCIENCE PROBLEM GENERATORS
+// ============================================================
+
+function rnd(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ========== CHEMISTRY GENERATOR ==========
+function generateChemistryQuestions(level) {
+  const topics = {
+    1: [ // Basic states of matter
+      {fact: "Water is a liquid at room temperature.", q: "What state of matter is water?", 
+       correct: "Liquid", wrong: ["Solid", "Gas", "Plasma"], 
+       hint: "It flows and takes the shape of its container.",
+       experiment: "🧪 Water can be poured!"},
+      {fact: "Ice is water in solid form.", q: "What happens to water when it freezes?", 
+       correct: "It becomes solid ice", wrong: ["It disappears", "It turns into gas", "It gets hotter"], 
+       hint: "Think about what happens in the freezer.",
+       experiment: "❄️ Water expands when it freezes!"},
+      {fact: "Steam is water as a gas.", q: "When water boils, it turns into...", 
+       correct: "Steam (gas)", wrong: ["Ice (solid)", "More water", "Nothing"], 
+       hint: "Watch a pot of boiling water!",
+       experiment: "💨 Steam is invisible until it cools!"},
+      {fact: "Solids keep their shape.", q: "Which of these is a solid?", 
+       correct: "Rock", wrong: ["Milk", "Air", "Juice"], 
+       hint: "It's hard and doesn't change shape.",
+       experiment: "🪨 A rock stays the same shape."},
+      {fact: "Liquids flow and take the shape of their container.", q: "Which of these is a liquid?", 
+       correct: "Milk", wrong: ["Table", "Balloon", "Book"], 
+       hint: "You can pour it!",
+       experiment: "🥛 Milk can be poured into a glass."},
+      {fact: "Gases spread out to fill any space.", q: "Which of these is a gas?", 
+       correct: "Oxygen (air)", wrong: ["Water", "Sand", "Wood"], 
+       hint: "We breathe it but can't see it!",
+       experiment: "💨 Air fills up a balloon!"}
+    ],
+    2: [ // Mixing and dissolving
+      {fact: "Some solids dissolve in water.", q: "What happens when you mix sugar in water?", 
+       correct: "It dissolves", wrong: ["It disappears forever", "It turns into ice", "It floats"], 
+       hint: "The sugar seems to 'disappear' but you can still taste it!",
+       experiment: "🍬 Sugar dissolves in tea!"},
+      {fact: "Sand does not dissolve in water.", q: "What happens when you mix sand in water?", 
+       correct: "It sinks to the bottom", wrong: ["It dissolves", "It turns to glass", "It disappears"], 
+       hint: "Think about a sandcastle at the beach.",
+       experiment: "🏖️ Sand settles at the bottom."},
+      {fact: "Oil and water don't mix.", q: "What happens when you mix oil and water?", 
+       correct: "They separate into layers", wrong: ["They mix together", "They turn solid", "They disappear"], 
+       hint: "Oil floats on top of water.",
+       experiment: "🥗 Salad dressing separates!"},
+      {fact: "Some changes can be reversed.", q: "Which of these can be reversed?", 
+       correct: "Melting ice", wrong: ["Burning wood", "Cooking an egg", "Mixing paint"], 
+       hint: "You can freeze water again!",
+       experiment: "❄️ Melted ice can be refrozen."}
+    ],
+    3: [ // Atoms and molecules basics
+      {fact: "Everything is made of tiny particles called atoms.", q: "What are atoms?", 
+       correct: "Tiny building blocks of everything", wrong: ["A type of food", "A kind of animal", "A weather event"], 
+       hint: "They're so small you can't see them!",
+       experiment: "🔬 Everything around you is made of atoms!"},
+      {fact: "Molecules are groups of atoms joined together.", q: "A water molecule is made of...", 
+       correct: "Hydrogen and oxygen", wrong: ["Salt and sugar", "Air and water", "Earth and fire"], 
+       hint: "H2O - H is hydrogen, O is oxygen.",
+       experiment: "💧 Water = 2 hydrogen + 1 oxygen!"},
+      {fact: "Different elements have different properties.", q: "Which of these is an element?", 
+       correct: "Gold", wrong: ["Water", "Salt", "Sugar"], 
+       hint: "It's a pure substance found on the periodic table.",
+       experiment: "🌟 Gold is an element (Au)!"}
+    ],
+    4: [ // Chemical reactions
+      {fact: "A chemical reaction creates new substances.", q: "Which of these is a chemical reaction?", 
+       correct: "Baking a cake", wrong: ["Melting ice", "Cutting paper", "Breaking a glass"], 
+       hint: "You can't unbake a cake!",
+       experiment: "🍰 Baking creates something new and yummy!"},
+      {fact: "Rust is a chemical reaction.", q: "What causes metal to rust?", 
+       correct: "Oxygen and water", wrong: ["Heat alone", "Cold alone", "Light"], 
+       hint: "Old cars left outside get rusty.",
+       experiment: "🔩 Iron + oxygen + water = rust!"},
+      {fact: "Vinegar and baking soda react.", q: "What happens when you mix vinegar and baking soda?", 
+       correct: "It fizzes and bubbles", wrong: ["It turns solid", "It disappears", "It gets very hot"], 
+       hint: "This is a classic science experiment!",
+       experiment: "🧪 Fizzing volcano experiment!"}
+    ],
+    5: [ // Acids and bases
+      {fact: "Acids taste sour. Lemons have acid.", q: "Which food is acidic?", 
+       correct: "Lemon", wrong: ["Bread", "Potato", "Rice"], 
+       hint: "It's sour!",
+       experiment: "🍋 Lemons taste sour because of acid."},
+      {fact: "Bases taste bitter. Soap is a base.", q: "Which of these is a base?", 
+       correct: "Soap", wrong: ["Orange juice", "Soda", "Vinegar"], 
+       hint: "It feels slippery and cleans things.",
+       experiment: "🧼 Soap is a base that cleans dirt."},
+      {fact: "When acids and bases mix, they neutralize.", q: "What happens when you mix an acid and a base?", 
+       correct: "They neutralize each other", wrong: ["They explode", "They turn to metal", "They disappear"], 
+       hint: "They become less acidic and less basic.",
+       experiment: "⚖️ Like mixing sour and bitter to make neutral!"}
+    ]
+  };
+  
+  let pool = topics[level] || topics[1];
+  let questions = [];
+  
+  for(let t of shuffle(pool).slice(0, 10)) {
+    let options = [t.correct, ...t.wrong];
+    options = shuffle(options);
+    questions.push({
+      type: 'chemistry',
+      fact: t.fact,
+      question: t.q,
+      options: options,
+      correct: options.indexOf(t.correct),
+      hint: t.hint,
+      experiment: t.experiment || "🔬 Let's experiment!",
+      explanation: `${t.fact} ${t.experiment || ''}`
+    });
+  }
+  
+  return questions;
+}
+
+// ========== PHYSICS GENERATOR ==========
+function generatePhysicsQuestions(level) {
+  const topics = {
+    1: [ // Push and pull
+      {fact: "A push moves things away from you.", q: "Which action is a PUSH?", 
+       correct: "Pushing a swing", wrong: ["Catching a ball", "Holding a book", "Sitting still"], 
+       hint: "You make it go away from you.",
+       experiment: "🎠 When you push a swing, it moves forward!"},
+      {fact: "A pull moves things toward you.", q: "Which action is a PULL?", 
+       correct: "Pulling a wagon", wrong: ["Kicking a ball", "Throwing a paper", "Dropping a toy"], 
+       hint: "You bring it closer to you.",
+       experiment: "🧳 You pull a wagon to make it follow you!"},
+      {fact: "Gravity pulls things down.", q: "Why does a ball fall to the ground?", 
+       correct: "Gravity pulls it down", wrong: ["The wind pushes it", "It wants to rest", "Air holds it up"], 
+       hint: "What goes up must come down!",
+       experiment: "🍎 Gravity pulls everything toward Earth."},
+      {fact: "Magnetism can push or pull without touching.", q: "What can a magnet do?", 
+       correct: "Attract iron and steel", wrong: ["Attract wood", "Attract plastic", "Attract water"], 
+       hint: "It sticks to your fridge!",
+       experiment: "🧲 Magnets stick to metal objects."}
+    ],
+    2: [ // Motion and speed
+      {fact: "Speed is how fast something moves.", q: "Which animal moves the FASTEST?", 
+       correct: "Cheetah", wrong: ["Turtle", "Snail", "Sloth"], 
+       hint: "It can run super quick!",
+       experiment: "🐆 Cheetahs can run 70 miles per hour!"},
+      {fact: "Force makes things start moving, stop moving, or change direction.", q: "What makes a toy car start moving?", 
+       correct: "A push or pull", wrong: ["Its color", "Its size", "Its weight"], 
+       hint: "You have to do something to it.",
+       experiment: "🚗 Give it a push and watch it go!"},
+      {fact: "Friction slows things down.", q: "What makes a rolling ball eventually stop?", 
+       correct: "Friction with the ground", wrong: ["It gets tired", "It forgets to move", "Gravity stops"], 
+       hint: "The ground rubs against it.",
+       experiment: "⚽ Rough ground makes it stop faster."}
+    ],
+    3: [ // Energy
+      {fact: "Energy makes things happen.", q: "What do we need to see during the day?", 
+       correct: "Light energy from the sun", wrong: ["Sound energy", "Heat energy only", "No energy"], 
+       hint: "The sun gives us this!",
+       experiment: "☀️ Solar panels catch the sun's energy!"},
+      {fact: "Sound is a form of energy.", q: "How does sound travel to our ears?", 
+       correct: "Through vibrations in the air", wrong: ["Through light beams", "Through smells", "Through thoughts"], 
+       hint: "Feel your throat when you talk!",
+       experiment: "🎵 Sound makes the air wiggle to our ears."},
+      {fact: "Heat is a form of energy.", q: "What does the sun give us besides light?", 
+       correct: "Heat energy", wrong: ["Cold energy", "Wind energy", "Food energy"], 
+       hint: "You feel warm in sunshine!",
+       experiment: "☀️ The sun warms our skin."}
+    ],
+    4: [ // Electricity and magnets
+      {fact: "Electricity powers many things.", q: "What do you need to turn on a light bulb?", 
+       correct: "Electricity", wrong: ["Water", "Air", "Magnets"], 
+       hint: "It comes from outlets and batteries.",
+       experiment: "💡 Electricity flows through wires to light the bulb!"},
+      {fact: "Magnets have north and south poles.", q: "What happens when you put two north poles together?", 
+       correct: "They push apart (repel)", wrong: ["They stick together", "Nothing happens", "They make sparks"], 
+       hint: "Like poles push away!",
+       experiment: "🧲 North and north don't want to touch!"},
+      {fact: "Some metals are magnetic.", q: "Which metal will a magnet pick up?", 
+       correct: "Iron (steel)", wrong: ["Gold", "Silver", "Copper"], 
+       hint: "Your refrigerator is made of this!",
+       experiment: "🧲 Test different metals with a magnet!"}
+    ],
+    5: [ // Simple machines
+      {fact: "A lever helps lift heavy things.", q: "Which is an example of a lever?", 
+       correct: "See-saw", wrong: ["Wheel", "Ramp", "Screw"], 
+       hint: "Up and down on the playground!",
+       experiment: "🛝 A see-saw is a lever that rocks!"},
+      {fact: "A ramp (inclined plane) makes it easier to move things up.", q: "Why are ramps helpful?", 
+       correct: "They spread out the work", wrong: ["They make things lighter", "They use magic", "They push things"], 
+       hint: "Easier to walk up than climb!",
+       experiment: " Wheelchair ramps help people go up."},
+      {fact: "Wheels reduce friction.", q: "Why do carts have wheels?", 
+       correct: "To roll more easily", wrong: ["To look nice", "To make noise", "To carry water"], 
+       hint: "Easier to roll than drag!",
+       experiment: "🛒 Shopping carts roll on wheels."}
+    ]
+  };
+  
+  let pool = topics[level] || topics[1];
+  let questions = [];
+  
+  for(let t of shuffle(pool).slice(0, 10)) {
+    let options = [t.correct, ...t.wrong];
+    options = shuffle(options);
+    questions.push({
+      type: 'physics',
+      fact: t.fact,
+      question: t.q,
+      options: options,
+      correct: options.indexOf(t.correct),
+      hint: t.hint,
+      experiment: t.experiment || "⚡ Try it yourself!",
+      explanation: `${t.fact} ${t.experiment || ''}`
+    });
+  }
+  
+  return questions;
+}
+
+// ========== BIOLOGY GENERATOR ==========
+function generateBiologyQuestions(level) {
+  const topics = {
+    1: [ // Living vs non-living, basic needs
+      {fact: "Living things grow, eat, and reproduce.", q: "Which of these is a living thing?", 
+       correct: "A tree", wrong: ["A rock", "A pencil", "A car"], 
+       hint: "It grows and needs water!",
+       experiment: "🌳 Trees grow from tiny seeds!"},
+      {fact: "All living things need water.", q: "What do plants need to survive?", 
+       correct: "Water and sunlight", wrong: ["Music and TV", "Shoes and socks", "Toys and games"], 
+       hint: "Give them water and put them in the sun!",
+       experiment: "🌱 A seed needs water to sprout!"},
+      {fact: "Animals need food, water, and air.", q: "What do all animals need?", 
+       correct: "Food and water", wrong: ["A bed", "A phone", "Clothes"], 
+       hint: "You get hungry and thirsty, too!",
+       experiment: "🐶 Your pet needs food and water every day."},
+      {fact: "Plants make their own food using sunlight.", q: "How do plants get their food?", 
+       correct: "They make it from sunlight", wrong: ["They eat bugs", "They drink milk", "They find it in soil"], 
+       hint: "It's called photosynthesis!",
+       experiment: "🌻 Sunflowers turn to face the sun!"}
+    ],
+    2: [ // Plants
+      {fact: "Plants have roots, stems, and leaves.", q: "What part of a plant takes in water?", 
+       correct: "Roots", wrong: ["Leaves", "Flowers", "Stem"], 
+       hint: "It's underground!",
+       experiment: "🥕 Carrots are roots that store food!"},
+      {fact: "Leaves make food for the plant.", q: "What do leaves need to make food?", 
+       correct: "Sunlight", wrong: ["Darkness", "Cold", "Wind"], 
+       hint: "They turn toward the sun.",
+       experiment: "🍃 Leaves soak up sunshine like solar panels!"},
+      {fact: "Flowers make seeds.", q: "What part of a plant makes seeds?", 
+       correct: "Flowers", wrong: ["Roots", "Leaves", "Stem"], 
+       hint: "It's often colorful and pretty!",
+       experiment: "🌸 Flowers become fruits with seeds inside!"},
+      {fact: "Seeds grow into new plants.", q: "What do you need to grow a new plant?", 
+       correct: "A seed", wrong: ["A rock", "A toy", "A shoe"], 
+       hint: "Plant it in soil and water it!",
+       experiment: "🌱 An apple seed can grow an apple tree!"}
+    ],
+    3: [ // Animals
+      {fact: "Animals can be grouped by what they eat.", q: "An animal that eats only plants is called...", 
+       correct: "Herbivore", wrong: ["Carnivore", "Omnivore", "Insectivore"], 
+       hint: "Cows and horses eat grass.",
+       experiment: "🐮 Cows are herbivores - they eat grass!"},
+      {fact: "Animals that eat only meat are carnivores.", q: "Which animal is a carnivore?", 
+       correct: "Lion", wrong: ["Cow", "Deer", "Sheep"], 
+       hint: "It hunts other animals for food.",
+       experiment: "🦁 Lions hunt zebras for food!"},
+      {fact: "Animals that eat both plants and meat are omnivores.", q: "Which animal is an omnivore?", 
+       correct: "Bear", wrong: ["Zebra", "Gazelle", "Butterfly"], 
+       hint: "They eat berries AND fish!",
+       experiment: "🐻 Bears love berries and salmon!"},
+      {fact: "Some animals hibernate in winter.", q: "What do bears do in winter?", 
+       correct: "Hibernate (sleep)", wrong: ["Fly south", "Grow fur", "Lay eggs"], 
+       hint: "They sleep through the cold months.",
+       experiment: "🐻‍❄️ Bears sleep in cozy dens all winter!"}
+    ],
+    4: [ // Human body
+      {fact: "Your heart pumps blood.", q: "What does your heart do?", 
+       correct: "Pumps blood", wrong: ["Thinks thoughts", "Digests food", "Helps you see"], 
+       hint: "You can feel it beating in your chest!",
+       experiment: "❤️ Your heart beats about 100,000 times a day!"},
+      {fact: "Your lungs help you breathe.", q: "What do we use lungs for?", 
+       correct: "Breathing air", wrong: ["Pumping blood", "Thinking", "Moving bones"], 
+       hint: "Take a deep breath!",
+       experiment: " Take a deep breath - that's your lungs working!"},
+      {fact: "Your brain controls everything.", q: "What part of your body thinks and learns?", 
+       correct: "Brain", wrong: ["Heart", "Stomach", "Feet"], 
+       hint: "It's inside your head!",
+       experiment: "🧠 Your brain controls everything you do!"},
+      {fact: "Bones give your body shape.", q: "What do bones do for your body?", 
+       correct: "Give it shape and support", wrong: ["Make you hungry", "Help you see", "Make blood"], 
+       hint: "Without them, you'd be wobbly!",
+       experiment: "🦴 Your skeleton holds you up!"}
+    ],
+    5: [ // Life cycles and habitats
+      {fact: "A butterfly starts as a caterpillar.", q: "What is the first stage of a butterfly?", 
+       correct: "Egg", wrong: ["Cocoon", "Butterfly", "Caterpillar"], 
+       hint: "It's very tiny and laid on a leaf.",
+       experiment: "🥚 Butterflies lay eggs on leaves!"},
+      {fact: "A frog starts as a tadpole in water.", q: "What do tadpoles grow into?", 
+       correct: "Frogs", wrong: ["Fish", "Snakes", "Birds"], 
+       hint: "They grow legs and lose their tails!",
+       experiment: "🐸 Tadpoles turn into frogs!"},
+      {fact: "Different animals live in different habitats.", q: "Where would you find a polar bear?", 
+       correct: "Arctic (cold, icy place)", wrong: ["Desert", "Rainforest", "Ocean"], 
+       hint: "It's very cold there!",
+       experiment: "❄️ Polar bears have thick fur for the cold!"},
+      {fact: "A habitat provides food, water, and shelter.", q: "What does a habitat give animals?", 
+       correct: "Everything they need to survive", wrong: ["Toys and games", "TV and movies", "Clothes and shoes"], 
+       hint: "Food, water, and a safe place to live.",
+       experiment: "🏞️ Your home is your habitat!"}
+    ]
+  };
+  
+  let pool = topics[level] || topics[1];
+  let questions = [];
+  
+  for(let t of shuffle(pool).slice(0, 10)) {
+    let options = [t.correct, ...t.wrong];
+    options = shuffle(options);
+    questions.push({
+      type: 'biology',
+      fact: t.fact,
+      question: t.q,
+      options: options,
+      correct: options.indexOf(t.correct),
+      hint: t.hint,
+      experiment: t.experiment || "🌱 Nature is amazing!",
+      explanation: `${t.fact} ${t.experiment || ''}`
+    });
+  }
+  
+  return questions;
+}
+
+// ========== EARTH SCIENCE GENERATOR ==========
+function generateEarthQuestions(level) {
+  const topics = {
+    1: [ // Weather
+      {fact: "The sun gives us light and heat.", q: "What is the sun?", 
+       correct: "A star", wrong: ["A planet", "A moon", "A cloud"], 
+       hint: "It's a giant ball of hot gas!",
+       experiment: "☀️ The sun is actually a star, like the ones at night!"},
+      {fact: "Rain comes from clouds.", q: "Where does rain come from?", 
+       correct: "Clouds in the sky", wrong: ["The ocean", "Rivers", "The ground"], 
+       hint: "Look up when it rains!",
+       experiment: "☁️ Clouds are made of tiny water drops."},
+      {fact: "The wind is moving air.", q: "What makes leaves blow around?", 
+       correct: "Wind", wrong: ["Gravity", "Magnets", "Magic"], 
+       hint: "You can feel it on your face!",
+       experiment: "💨 Wind is just air that's moving fast!"},
+      {fact: "Thunderstorms have lightning and thunder.", q: "What comes first, lightning or thunder?", 
+       correct: "Lightning", wrong: ["Thunder", "Both at once", "Neither"], 
+       hint: "Count the seconds after the flash!",
+       experiment: "⚡ Light travels faster than sound!"}
+    ],
+    2: [ // Rocks and soil
+      {fact: "Rocks are made of minerals.", q: "What are rocks made of?", 
+       correct: "Minerals", wrong: ["Plants", "Water", "Air"], 
+       hint: "They're natural and hard.",
+       experiment: " Granite is a rock made of different minerals!"},
+      {fact: "Soil has tiny pieces of rock and dead plants.", q: "What is soil made of?", 
+       correct: "Crumbled rock and dead plants", wrong: ["Only sand", "Only clay", "Plastic"], 
+       hint: "It's what plants grow in!",
+       experiment: "🌱 Worms help make soil healthy!"},
+      {fact: "Sand is tiny pieces of rock.", q: "Where can you find lots of sand?", 
+       correct: "At the beach", wrong: ["In the mountains", "In the sky", "In a tree"], 
+       hint: "It's near the ocean!",
+       experiment: "🏖️ Sand comes from rocks broken down by waves!"}
+    ],
+    3: [ // Day and night, seasons
+      {fact: "Earth spins on its axis.", q: "What causes day and night?", 
+       correct: "Earth spinning", wrong: ["The sun moving", "The moon blocking light", "Clouds covering sky"], 
+       hint: "The Earth turns around!",
+       experiment: "🌍 When your side faces the sun, it's day!"},
+      {fact: "It takes one year for Earth to go around the sun.", q: "How long does it take Earth to orbit the sun?", 
+       correct: "One year", wrong: ["One day", "One month", "One week"], 
+       hint: "That's how we measure years!",
+       experiment: "🗓️ Each trip around the sun is one year!"},
+      {fact: "Seasons change because Earth is tilted.", q: "Why do we have seasons?", 
+       correct: "Earth is tilted as it orbits the sun", wrong: ["The sun gets hotter", "The moon changes", "Clouds move"], 
+       hint: "Different parts get more sun at different times.",
+       experiment: "🌞 Summer is when your part tilts toward the sun!"}
+    ],
+    4: [ // Water cycle
+      {fact: "The water cycle moves water around Earth.", q: "What is evaporation?", 
+       correct: "Water turning into vapor", wrong: ["Vapor turning into water", "Water freezing", "Rain falling"], 
+       hint: "Puddles disappear on sunny days!",
+       experiment: "💧 The sun makes water disappear into the air!"},
+      {fact: "Condensation makes clouds.", q: "What is condensation?", 
+       correct: "Water vapor turning back into liquid", wrong: ["Water freezing into ice", "Rain falling", "Snow melting"], 
+       hint: "See it on a cold glass of lemonade!",
+       experiment: "🥤 Water drops form on cold drinks - that's condensation!"},
+      {fact: "Precipitation is water falling from clouds.", q: "Which is a form of precipitation?", 
+       correct: "Rain, snow, or hail", wrong: ["Wind", "Sunshine", "Clouds"], 
+       hint: "It falls from the sky!",
+       experiment: "☔ Rain is liquid precipitation, snow is frozen!"}
+    ],
+    5: [ // Solar system
+      {fact: "Earth is the third planet from the sun.", q: "What number is Earth from the sun?", 
+       correct: "Third", wrong: ["First", "Second", "Fourth"], 
+       hint: "Mercury, Venus, THEN Earth!",
+       experiment: "🌍 We're just right - not too hot, not too cold!"},
+      {fact: "The moon orbits Earth.", q: "What does the moon orbit?", 
+       correct: "Earth", wrong: ["The sun", "Mars", "Jupiter"], 
+       hint: "It goes around us!",
+       experiment: "🌙 The moon takes about 28 days to go around Earth."},
+      {fact: "Stars are giant balls of hot gas.", q: "What are stars made of?", 
+       correct: "Hot gas", wrong: ["Rock", "Water", "Ice"], 
+       hint: "Our sun is a star!",
+       experiment: "⭐ Stars are like our sun, but very far away."},
+      {fact: "The solar system has eight planets.", q: "How many planets are in our solar system?", 
+       correct: "Eight", wrong: ["Seven", "Nine", "Ten"], 
+       hint: "Pluto is a dwarf planet now.",
+       experiment: "🪐 Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune!"}
+    ]
+  };
+  
+  let pool = topics[level] || topics[1];
+  let questions = [];
+  
+  for(let t of shuffle(pool).slice(0, 10)) {
+    let options = [t.correct, ...t.wrong];
+    options = shuffle(options);
+    questions.push({
+      type: 'earth',
+      fact: t.fact,
+      question: t.q,
+      options: options,
+      correct: options.indexOf(t.correct),
+      hint: t.hint,
+      experiment: t.experiment || "🌎 Our planet is amazing!",
+      explanation: `${t.fact} ${t.experiment || ''}`
+    });
+  }
+  
+  return questions;
+}
+
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+const PASS_PCT = 80;
+const STORAGE_KEY = "scienceAdv_v1";
+const CATS = {
+  chemistry: {label: "Chemistry", levels: 5, color: "#FF6B6B", icon: "🧪"},
+  physics: {label: "Physics", levels: 5, color: "#4ECDC4", icon: "⚡"},
+  biology: {label: "Biology", levels: 5, color: "#96CEB4", icon: "🌱"},
+  earth: {label: "Earth Science", levels: 5, color: "#FFD93D", icon: "🌍"}
+};
+
+let progress = {};
+let cat = "", level = 0, questions = [], qi = 0, correct = 0, wrong = 0, mistakes = [];
+let answered = false, hintCount = 0;
+
+function initProgress() {
+  Object.keys(CATS).forEach(c => {
+    if(!progress[c]) progress[c] = {};
+    for(let l = 1; l <= CATS[c].levels; l++) {
+      if(!progress[c][l]) progress[c][l] = {done: false, score: 0, unlocked: l === 1};
+    }
+  });
+}
+
+function saveProgress() {
+  const blob = new Blob([JSON.stringify({v:1, progress}, null, 2)], {type: "application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "science-adventure-save.json";
+  a.click();
+  document.getElementById("saveLbl").textContent = "✅ Saved!";
+  setTimeout(updateSaveLbl, 2000);
+}
+
+function loadProgress() { 
+  document.getElementById("loadFile").click(); 
+}
+
+function loadFile(e) {
+  const file = e.target.files[0]; 
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const d = JSON.parse(ev.target.result);
+      if(d.v === 1 && d.progress) {
+        progress = d.progress;
+        initProgress();
+        updateSaveLbl();
+      } else alert("Invalid save file.");
+    } catch { alert("Could not read save file."); }
+  };
+  r.readAsText(file);
+  e.target.value = "";
+}
+
+function updateSaveLbl() {
+  let done = 0, total = 0;
+  Object.keys(CATS).forEach(c => {
+    for(let l = 1; l <= CATS[c].levels; l++) {
+      total++;
+      if(progress[c] && progress[c][l] && progress[c][l].done) done++;
+    }
+  });
+  document.getElementById("saveLbl").textContent = done ? done + "/" + total + " levels done" : "No saves yet";
+  
+  // Update progress chart
+  let chart = document.getElementById("progressChart");
+  if(chart) {
+    let pct = Math.round((done/total)*100);
+    let byCat = Object.keys(CATS).map(c => {
+      let catDone = 0;
+      for(let l = 1; l <= CATS[c].levels; l++) {
+        if(progress[c] && progress[c][l] && progress[c][l].done) catDone++;
+      }
+      return `${CATS[c].icon} ${catDone}/${CATS[c].levels}`;
+    }).join(" • ");
+    
+    chart.innerHTML = `
+      <h3 style="color:#2D3561;margin-bottom:10px">📊 Your Science Journey</h3>
+      <div style="margin-bottom:5px">${done} of ${total} levels completed (${pct}%)</div>
+      <div class="progress-bar-cont"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div class="progress-stats">${byCat}</div>
+    `;
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function showHome() { 
+  updateSaveLbl();
+  showScreen("homeScreen"); 
+}
+
+function openCategory(c) {
+  cat = c;
+  document.getElementById("levelsTitle").textContent = CATS[c].label + " — Choose Level";
+  const grid = document.getElementById("levelsGrid");
+  grid.innerHTML = "";
+  const emojis = ["🥉", "🥈", "🥇", "🏆", "👑"];
+  
+  for(let l = 1; l <= CATS[c].levels; l++) {
+    const p = progress[c][l];
+    const btn = document.createElement("button");
+    btn.className = "lv-btn" + (p.unlocked ? "" : " locked") + (p.done ? " done" : "");
+    btn.style.background = p.done ? "linear-gradient(135deg,#00cec9,#00a085)" : "linear-gradient(135deg,#74b9ff,#0984e3)";
+    btn.innerHTML = '<span class="lv-icon">' + emojis[l-1] + '</span>Level ' + l + 
+                    (p.done ? '<div class="lv-score">Best: ' + p.score + '%</div>' : '') + 
+                    (!p.unlocked ? '<span class="lv-lock">🔒</span>' : "");
+    if(p.unlocked) btn.onclick = (function(ll) { return function() { startLevel(ll); }; })(l);
+    grid.appendChild(btn);
+  }
+  showScreen("levelsScreen");
+}
+
+function startLevel(l) {
+  level = l;
+  qi = 0;
+  correct = 0;
+  wrong = 0;
+  mistakes = [];
+  answered = false;
+  hintCount = 0;
+  
+  // Generate fresh problems!
+  if(cat === 'chemistry') questions = generateChemistryQuestions(Math.min(l, 5));
+  else if(cat === 'physics') questions = generatePhysicsQuestions(Math.min(l, 5));
+  else if(cat === 'biology') questions = generateBiologyQuestions(Math.min(l, 5));
+  else if(cat === 'earth') questions = generateEarthQuestions(Math.min(l, 5));
+  
+  document.getElementById("quizLabel").textContent = CATS[cat].label + " • Level " + l;
+  showScreen("quizScreen");
+  loadQuestion();
+}
+
+function leaveQuiz() {
+  if(confirm("Leave this level? Current progress won't be saved.")) showHome();
+}
+
+function loadQuestion() {
+  answered = false;
+  const q = questions[qi];
+  const total = questions.length;
+  
+  document.getElementById("quizQNum").textContent = "Q " + (qi+1) + " / " + total;
+  document.getElementById("qsCorrect").textContent = correct;
+  document.getElementById("qsWrong").textContent = wrong;
+  const att = correct + wrong;
+  document.getElementById("qsAcc").textContent = att ? Math.round(correct/att*100) + "%" : "—";
+  document.getElementById("progFill").style.width = (qi/total*100) + "%";
+  
+  document.getElementById("feedback").className = "feedback";
+  document.getElementById("explanation").className = "explanation";
+  document.getElementById("hintBox").className = "hint-box";
+  document.getElementById("checkBtn").style.display = "inline-flex";
+  document.getElementById("nextBtn").style.display = "none";
+  
+  const hintAllowed = qi < 4 && hintCount < 2;
+  const hintBtn = document.getElementById("hintBtn");
+  hintBtn.style.display = hintAllowed ? "inline-flex" : "none";
+  hintBtn.disabled = false;
+  
+  // Show fun fact button on last question
+  document.getElementById("funFactBtn").style.display = qi === total-1 ? "inline-flex" : "none";
+  
+  renderQuestion(q);
+}
+
+function renderQuestion(q) {
+  const card = document.getElementById("qCard");
+  const colors = {
+    chemistry: "#FF6B6B",
+    physics: "#4ECDC4", 
+    biology: "#96CEB4",
+    earth: "#FFD93D"
+  };
+  card.style.borderTopColor = colors[cat];
+  
+  let html = `<div class="q-type-badge">${CATS[cat].icon} ${CATS[cat].label}</div>`;
+  html += `<div class="q-fact">🔬 Did you know? ${q.fact}</div>`;
+  html += `<div class="q-text">${q.question}</div>`;
+  
+  // Add experiment visual
+  html += `<div class="experiment-box">`;
+  html += `<div class="science-emoji">${getExperimentEmoji(q.type)}</div>`;
+  html += `<div style="font-size:0.9rem;color:#2D3561">${q.experiment}</div>`;
+  html += `</div>`;
+  
+  html += `<div class="options two-col" id="opts"></div>`;
+  card.innerHTML = html;
+  
+  renderOptions(q, document.getElementById("opts"));
+}
+
+function getExperimentEmoji(type) {
+  const emojis = {
+    chemistry: "🧪⚗️🔬",
+    physics: "⚡🧲⚙️",
+    biology: "🌱🐛🦋",
+    earth: "🌍☁️🌙"
+  };
+  return emojis[type] || "🔬";
+}
+
+function renderOptions(q, container) {
+  const letters = ["A", "B", "C", "D"];
+  container.innerHTML = '';
+  q.options.forEach(function(opt, i) {
+    const btn = document.createElement("button");
+    btn.className = "opt-btn";
+    btn.innerHTML = '<div class="opt-letter">' + letters[i] + '</div><div>' + opt + '</div>';
+    btn.onclick = (function(idx) { return function() { selectOption(idx, q, container); }; })(i);
+    container.appendChild(btn);
+  });
+}
+
+function selectOption(i, q, container) {
+  if(answered) return;
+  answered = true;
+  const isCorrect = i === q.correct;
+  
+  if(isCorrect) { 
+    correct++; 
+  } else { 
+    wrong++; 
+    mistakes.push({q: q.question, exp: q.explanation});
+  }
+  
+  container.querySelectorAll(".opt-btn").forEach(function(b, idx) {
+    b.disabled = true;
+    if(idx === q.correct) b.classList.add("correct");
+    else if(idx === i && !isCorrect) b.classList.add("wrong");
+  });
+  
+  showFeedback(isCorrect, q.explanation);
+}
+
+function showFeedback(isCorrect, msg) {
+  const fb = document.getElementById("feedback");
+  fb.textContent = (isCorrect ? "✅ Correct! " : "❌ Not quite — ") + msg;
+  fb.className = "feedback show " + (isCorrect ? "ok" : "bad");
+  
+  if(!isCorrect) {
+    const ex = document.getElementById("explanation");
+    ex.textContent = "💡 " + msg;
+    ex.className = "explanation show";
+  }
+  
+  document.getElementById("checkBtn").style.display = "none";
+  document.getElementById("nextBtn").style.display = "inline-flex";
+  document.getElementById("hintBtn").style.display = "none";
+  document.getElementById("qsCorrect").textContent = correct;
+  document.getElementById("qsWrong").textContent = wrong;
+  const att = correct + wrong;
+  document.getElementById("qsAcc").textContent = att ? Math.round(correct/att*100) + "%" : "—";
+}
+
+function showHint() {
+  const q = questions[qi];
+  if(!q.hint) return;
+  hintCount++;
+  const hb = document.getElementById("hintBox");
+  hb.textContent = "💡 Hint: " + q.hint;
+  hb.className = "hint-box show";
+  document.getElementById("hintBtn").disabled = true;
+}
+
+function showFunFact() {
+  const facts = [
+    "🌍 Earth is the only planet not named after a god!",
+    "🧪 The hottest temperature ever recorded was 134°F!",
+    "⚡ Lightning strikes somewhere on Earth 100 times every second!",
+    "🌱 A single tree can produce enough oxygen for 4 people!",
+    "🧲 A magnet's pull is strongest at its poles!",
+    "🦋 Butterflies taste with their feet!",
+    "🌙 The moon is moving away from Earth every year!",
+    "💧 Water can boil and freeze at the same time (triple point)!",
+    "🐙 Octopuses have three hearts!",
+    "☁️ Clouds can weigh over a million pounds!"
+  ];
+  alert("🎉 Fun Fact: " + facts[Math.floor(Math.random() * facts.length)]);
+}
+
+function nextQuestion() {
+  qi++;
+  if(qi >= questions.length) showResult();
+  else loadQuestion();
+}
+
+function showResult() {
+  const total = questions.length;
+  const pct = Math.round((correct/total)*100);
+  const passed = pct >= PASS_PCT;
+  
+  if(passed) {
+    progress[cat][level].done = true;
+    if(pct > progress[cat][level].score) progress[cat][level].score = pct;
+    if(level < CATS[cat].levels) progress[cat][level+1].unlocked = true;
+  }
+  
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({v:1, progress})); } catch {}
+  updateSaveLbl();
+  
+  document.getElementById("resEmoji").textContent = passed ? (pct === 100 ? "🏆" : "🌟") : "💪";
+  document.getElementById("resTitle").textContent = passed ? "You're a Scientist!" : "Keep Experimenting!";
+  document.getElementById("resPct").textContent = pct + "%";
+  document.getElementById("resPct").style.color = passed ? "#00b894" : "#FC5C65";
+  document.getElementById("resStars").textContent = pct >= 90 ? "⭐⭐⭐" : pct >= 70 ? "⭐⭐" : "⭐";
+  document.getElementById("resMsg").innerHTML = passed
+    ? "Amazing! You got <b>" + correct + "</b> out of <b>" + total + "</b> correct." + 
+      (level < CATS[cat].levels ? " You unlocked the next level! 🚀" : " You've mastered this topic!")
+    : "You got <b>" + correct + "</b> out of <b>" + total + "</b> correct.<br>" +
+      "You need <b>" + PASS_PCT + "%</b> to pass. Review and try again!";
+  
+  const ms = document.getElementById("mistakeSection");
+  if(mistakes.length > 0) {
+    ms.innerHTML = '<div class="mistake-title">📝 Review Your Mistakes:</div>' + 
+      mistakes.map(m => '<div class="mistake-item"><div class="mi-q">' + m.q + '</div>' + 
+      (m.exp ? '<div class="mi-exp">' + m.exp + '</div>' : '') + '</div>').join("");
+  } else ms.innerHTML = "";
+  
+  document.getElementById("retryBtn").onclick = function() { startLevel(level); };
+  const nb = document.getElementById("nextLvBtn");
+  if(passed && level < CATS[cat].levels) {
+    nb.style.display = "inline-flex";
+    nb.onclick = function() { startLevel(level + 1); };
+  } else nb.style.display = "none";
+  
+  showScreen("resultScreen");
+}
+
+// Initialize
+(function init() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) { const d = JSON.parse(raw); if(d.v === 1 && d.progress) progress = d.progress; }
+  } catch {}
+  initProgress();
+  updateSaveLbl();
+})();
+</script>
+</body>
+</html>
