@@ -120,7 +120,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#
 .btn-next{background:#185a9d;color:#fff;flex:1;display:none}
 .btn-hint{background:#FFD93D;color:#2D3561}
 .btn-back{background:#e0e0e0;color:#555}
-.btn-fun{background:#FF6B6B;color:#white;font-size:1.2rem}
+.btn-fun{background:#FF6B6B;color:white;font-size:1.2rem}
 
 /* Result Screen */
 .result-card{background:#fff;border-radius:20px;padding:28px;text-align:center;box-shadow:0 8px 28px rgba(0,0,0,0.15);margin-top:12px}
@@ -702,7 +702,7 @@ function generateEarthQuestions(level) {
 }
 
 // ============================================================
-// STATE MANAGEMENT
+// STATE MANAGEMENT - FIXED
 // ============================================================
 const PASS_PCT = 80;
 const STORAGE_KEY = "scienceAdv_v1";
@@ -726,6 +726,7 @@ function initProgress() {
   });
 }
 
+// FIXED: Save function with proper data structure
 function saveProgress() {
   const blob = new Blob([JSON.stringify({v:1, progress}, null, 2)], {type: "application/json"});
   const a = document.createElement("a");
@@ -736,10 +737,12 @@ function saveProgress() {
   setTimeout(updateSaveLbl, 2000);
 }
 
+// FIXED: Load function
 function loadProgress() { 
   document.getElementById("loadFile").click(); 
 }
 
+// FIXED: Load file handler with proper validation and reinitialization
 function loadFile(e) {
   const file = e.target.files[0]; 
   if(!file) return;
@@ -747,12 +750,22 @@ function loadFile(e) {
   r.onload = ev => {
     try {
       const d = JSON.parse(ev.target.result);
-      if(d.v === 1 && d.progress) {
+      // Check if it's a valid save file
+      if(d && d.v === 1 && d.progress) {
         progress = d.progress;
+        // Reinitialize to ensure all levels exist
         initProgress();
         updateSaveLbl();
-      } else alert("Invalid save file.");
-    } catch { alert("Could not read save file."); }
+        renderHome();
+        document.getElementById("saveLbl").textContent = "✅ Loaded!";
+        setTimeout(updateSaveLbl, 2000);
+      } else {
+        alert("Invalid save file. Please use a valid Science Adventure save file.");
+      }
+    } catch(error) {
+      alert("Could not read save file. Make sure it's a valid save file.");
+      console.error("Load error:", error);
+    }
   };
   r.readAsText(file);
   e.target.value = "";
@@ -799,6 +812,13 @@ function showHome() {
   showScreen("homeScreen"); 
 }
 
+// FIXED: Render home function
+function renderHome() {
+  // This is called when needed to refresh the home screen
+  updateSaveLbl();
+}
+
+// FIXED: Open category with proper unlocked status
 function openCategory(c) {
   cat = c;
   document.getElementById("levelsTitle").textContent = CATS[c].label + " — Choose Level";
@@ -806,7 +826,24 @@ function openCategory(c) {
   grid.innerHTML = "";
   const emojis = ["🥉", "🥈", "🥇", "🏆", "👑"];
   
+  // Make sure the category exists
+  if(!progress[c]) progress[c] = {};
+  
   for(let l = 1; l <= CATS[c].levels; l++) {
+    // Ensure level exists
+    if(!progress[c][l]) {
+      progress[c][l] = {done: false, score: 0, unlocked: l === 1};
+    }
+    
+    // Check if this level should be unlocked based on previous level
+    let unlocked = l === 1; // Level 1 always unlocked
+    if(l > 1 && progress[c][l-1] && progress[c][l-1].done) {
+      unlocked = true;
+    }
+    
+    // Update the unlocked status
+    progress[c][l].unlocked = unlocked;
+    
     const p = progress[c][l];
     const btn = document.createElement("button");
     btn.className = "lv-btn" + (p.unlocked ? "" : " locked") + (p.done ? " done" : "");
@@ -1002,6 +1039,7 @@ function showResult() {
   if(passed) {
     progress[cat][level].done = true;
     if(pct > progress[cat][level].score) progress[cat][level].score = pct;
+    // Unlock next level
     if(level < CATS[cat].levels) progress[cat][level+1].unlocked = true;
   }
   
@@ -1043,6 +1081,7 @@ function showResult() {
     if(raw) { const d = JSON.parse(raw); if(d.v === 1 && d.progress) progress = d.progress; }
   } catch {}
   initProgress();
+  renderHome();
   updateSaveLbl();
 })();
 </script>
