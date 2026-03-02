@@ -6,7 +6,7 @@
 <title>Science Adventure - 1st to 2nd Grade Level</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#43cea2 0%,,#185a9d 50%,,#43cea2 100%);min-height:100vh;padding:16px}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#43cea2 0%,#185a9d 50%,#43cea2 100%);min-height:100vh;padding:16px}
 .wrap{max-width:720px;margin:0 auto}
 
 /* Top Bar */
@@ -702,7 +702,7 @@ function generateEarthQuestions(level) {
 }
 
 // ============================================================
-// STATE MANAGEMENT - FIXED
+// STATE MANAGEMENT - FIXED: no level locks, fresh questions
 // ============================================================
 const PASS_PCT = 80;
 const STORAGE_KEY = "scienceAdv_v1";
@@ -721,12 +721,12 @@ function initProgress() {
   Object.keys(CATS).forEach(c => {
     if(!progress[c]) progress[c] = {};
     for(let l = 1; l <= CATS[c].levels; l++) {
-      if(!progress[c][l]) progress[c][l] = {done: false, score: 0, unlocked: l === 1};
+      if(!progress[c][l]) progress[c][l] = {done: false, score: 0};
     }
   });
 }
 
-// FIXED: Save function with proper data structure
+// Save progress
 function saveProgress() {
   const blob = new Blob([JSON.stringify({v:1, progress}, null, 2)], {type: "application/json"});
   const a = document.createElement("a");
@@ -737,12 +737,11 @@ function saveProgress() {
   setTimeout(updateSaveLbl, 2000);
 }
 
-// FIXED: Load function
+// Load progress
 function loadProgress() { 
   document.getElementById("loadFile").click(); 
 }
 
-// FIXED: Load file handler with proper validation and reinitialization
 function loadFile(e) {
   const file = e.target.files[0]; 
   if(!file) return;
@@ -750,11 +749,9 @@ function loadFile(e) {
   r.onload = ev => {
     try {
       const d = JSON.parse(ev.target.result);
-      // Check if it's a valid save file
       if(d && d.v === 1 && d.progress) {
         progress = d.progress;
-        // Reinitialize to ensure all levels exist
-        initProgress();
+        initProgress(); // fill missing levels
         updateSaveLbl();
         renderHome();
         document.getElementById("saveLbl").textContent = "✅ Loaded!";
@@ -763,8 +760,8 @@ function loadFile(e) {
         alert("Invalid save file. Please use a valid Science Adventure save file.");
       }
     } catch(error) {
-      alert("Could not read save file. Make sure it's a valid save file.");
-      console.error("Load error:", error);
+      alert("Could not read save file.");
+      console.error(error);
     }
   };
   r.readAsText(file);
@@ -781,7 +778,6 @@ function updateSaveLbl() {
   });
   document.getElementById("saveLbl").textContent = done ? done + "/" + total + " levels done" : "No saves yet";
   
-  // Update progress chart
   let chart = document.getElementById("progressChart");
   if(chart) {
     let pct = Math.round((done/total)*100);
@@ -812,13 +808,11 @@ function showHome() {
   showScreen("homeScreen"); 
 }
 
-// FIXED: Render home function
 function renderHome() {
-  // This is called when needed to refresh the home screen
-  updateSaveLbl();
+  updateSaveLbl(); // just refresh chart
 }
 
-// FIXED: Open category with proper unlocked status
+// Open category – ALL LEVELS UNLOCKED (no locks)
 function openCategory(c) {
   cat = c;
   document.getElementById("levelsTitle").textContent = CATS[c].label + " — Choose Level";
@@ -826,32 +820,17 @@ function openCategory(c) {
   grid.innerHTML = "";
   const emojis = ["🥉", "🥈", "🥇", "🏆", "👑"];
   
-  // Make sure the category exists
   if(!progress[c]) progress[c] = {};
   
   for(let l = 1; l <= CATS[c].levels; l++) {
-    // Ensure level exists
-    if(!progress[c][l]) {
-      progress[c][l] = {done: false, score: 0, unlocked: l === 1};
-    }
-    
-    // Check if this level should be unlocked based on previous level
-    let unlocked = l === 1; // Level 1 always unlocked
-    if(l > 1 && progress[c][l-1] && progress[c][l-1].done) {
-      unlocked = true;
-    }
-    
-    // Update the unlocked status
-    progress[c][l].unlocked = unlocked;
-    
+    if(!progress[c][l]) progress[c][l] = {done: false, score: 0};
     const p = progress[c][l];
     const btn = document.createElement("button");
-    btn.className = "lv-btn" + (p.unlocked ? "" : " locked") + (p.done ? " done" : "");
+    btn.className = "lv-btn" + (p.done ? " done" : "");
     btn.style.background = p.done ? "linear-gradient(135deg,#00cec9,#00a085)" : "linear-gradient(135deg,#74b9ff,#0984e3)";
     btn.innerHTML = '<span class="lv-icon">' + emojis[l-1] + '</span>Level ' + l + 
-                    (p.done ? '<div class="lv-score">Best: ' + p.score + '%</div>' : '') + 
-                    (!p.unlocked ? '<span class="lv-lock">🔒</span>' : "");
-    if(p.unlocked) btn.onclick = (function(ll) { return function() { startLevel(ll); }; })(l);
+                    (p.done ? '<div class="lv-score">Best: ' + p.score + '%</div>' : '');
+    btn.onclick = (function(ll) { return function() { startLevel(ll); }; })(l);
     grid.appendChild(btn);
   }
   showScreen("levelsScreen");
@@ -859,18 +838,12 @@ function openCategory(c) {
 
 function startLevel(l) {
   level = l;
-  qi = 0;
-  correct = 0;
-  wrong = 0;
-  mistakes = [];
-  answered = false;
-  hintCount = 0;
+  qi = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintCount = 0;
   
-  // Generate fresh problems!
-  if(cat === 'chemistry') questions = generateChemistryQuestions(Math.min(l, 5));
-  else if(cat === 'physics') questions = generatePhysicsQuestions(Math.min(l, 5));
-  else if(cat === 'biology') questions = generateBiologyQuestions(Math.min(l, 5));
-  else if(cat === 'earth') questions = generateEarthQuestions(Math.min(l, 5));
+  if(cat === 'chemistry') questions = generateChemistryQuestions(Math.min(l,5));
+  else if(cat === 'physics') questions = generatePhysicsQuestions(Math.min(l,5));
+  else if(cat === 'biology') questions = generateBiologyQuestions(Math.min(l,5));
+  else if(cat === 'earth') questions = generateEarthQuestions(Math.min(l,5));
   
   document.getElementById("quizLabel").textContent = CATS[cat].label + " • Level " + l;
   showScreen("quizScreen");
@@ -904,7 +877,6 @@ function loadQuestion() {
   hintBtn.style.display = hintAllowed ? "inline-flex" : "none";
   hintBtn.disabled = false;
   
-  // Show fun fact button on last question
   document.getElementById("funFactBtn").style.display = qi === total-1 ? "inline-flex" : "none";
   
   renderQuestion(q);
@@ -912,24 +884,16 @@ function loadQuestion() {
 
 function renderQuestion(q) {
   const card = document.getElementById("qCard");
-  const colors = {
-    chemistry: "#FF6B6B",
-    physics: "#4ECDC4", 
-    biology: "#96CEB4",
-    earth: "#FFD93D"
-  };
+  const colors = { chemistry:"#FF6B6B", physics:"#4ECDC4", biology:"#96CEB4", earth:"#FFD93D" };
   card.style.borderTopColor = colors[cat];
   
   let html = `<div class="q-type-badge">${CATS[cat].icon} ${CATS[cat].label}</div>`;
   html += `<div class="q-fact">🔬 Did you know? ${q.fact}</div>`;
   html += `<div class="q-text">${q.question}</div>`;
-  
-  // Add experiment visual
   html += `<div class="experiment-box">`;
   html += `<div class="science-emoji">${getExperimentEmoji(q.type)}</div>`;
   html += `<div style="font-size:0.9rem;color:#2D3561">${q.experiment}</div>`;
   html += `</div>`;
-  
   html += `<div class="options two-col" id="opts"></div>`;
   card.innerHTML = html;
   
@@ -937,40 +901,31 @@ function renderQuestion(q) {
 }
 
 function getExperimentEmoji(type) {
-  const emojis = {
-    chemistry: "🧪⚗️🔬",
-    physics: "⚡🧲⚙️",
-    biology: "🌱🐛🦋",
-    earth: "🌍☁️🌙"
-  };
+  const emojis = { chemistry:"🧪⚗️🔬", physics:"⚡🧲⚙️", biology:"🌱🐛🦋", earth:"🌍☁️🌙" };
   return emojis[type] || "🔬";
 }
 
 function renderOptions(q, container) {
-  const letters = ["A", "B", "C", "D"];
+  const letters = ["A","B","C","D"];
   container.innerHTML = '';
-  q.options.forEach(function(opt, i) {
+  q.options.forEach((opt,i) => {
     const btn = document.createElement("button");
     btn.className = "opt-btn";
-    btn.innerHTML = '<div class="opt-letter">' + letters[i] + '</div><div>' + opt + '</div>';
-    btn.onclick = (function(idx) { return function() { selectOption(idx, q, container); }; })(i);
+    btn.innerHTML = '<div class="opt-letter">'+letters[i]+'</div><div>'+opt+'</div>';
+    btn.onclick = (function(idx){ return function(){ selectOption(idx,q,container); }; })(i);
     container.appendChild(btn);
   });
 }
 
-function selectOption(i, q, container) {
+function selectOption(i,q,container) {
   if(answered) return;
   answered = true;
   const isCorrect = i === q.correct;
   
-  if(isCorrect) { 
-    correct++; 
-  } else { 
-    wrong++; 
-    mistakes.push({q: q.question, exp: q.explanation});
-  }
+  if(isCorrect) correct++; 
+  else { wrong++; mistakes.push({q: q.question, exp: q.explanation}); }
   
-  container.querySelectorAll(".opt-btn").forEach(function(b, idx) {
+  container.querySelectorAll(".opt-btn").forEach((b,idx) => {
     b.disabled = true;
     if(idx === q.correct) b.classList.add("correct");
     else if(idx === i && !isCorrect) b.classList.add("wrong");
@@ -1003,9 +958,8 @@ function showHint() {
   const q = questions[qi];
   if(!q.hint) return;
   hintCount++;
-  const hb = document.getElementById("hintBox");
-  hb.textContent = "💡 Hint: " + q.hint;
-  hb.className = "hint-box show";
+  document.getElementById("hintBox").textContent = "💡 Hint: " + q.hint;
+  document.getElementById("hintBox").classList.add("show");
   document.getElementById("hintBtn").disabled = true;
 }
 
@@ -1039,8 +993,6 @@ function showResult() {
   if(passed) {
     progress[cat][level].done = true;
     if(pct > progress[cat][level].score) progress[cat][level].score = pct;
-    // Unlock next level
-    if(level < CATS[cat].levels) progress[cat][level+1].unlocked = true;
   }
   
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({v:1, progress})); } catch {}
