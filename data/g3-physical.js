@@ -1,0 +1,697 @@
+// Grade 3 Physical Science skill content (Units A-J).
+const G3_PHYSICAL = [
+
+  // ===================== UNIT A: MATERIALS =====================
+
+  {
+    id: 'g3-A-1',
+    unit: 'A',
+    title: 'Identify properties of an object',
+    type: 'mcq',
+    pool: [
+      {fact: "A property is a feature of an object that you can observe or measure, like its color, weight, or texture.",
+       q: "Which of these is a PROPERTY of a soccer ball?",
+       correct: "It is round and bounces", wrong: ["It was a birthday gift", "It is somebody's favorite toy", "It costs 20 dollars"],
+       hint: "Think about something you can observe about the ball itself, not its history or price.",
+       experiment: "🔍 Try this: Pick an object and list 3 properties you can observe about it."},
+      {fact: "Scientists describe objects using properties like hardness, flexibility, and magnetism.",
+       q: "Which of these is a PROPERTY that could describe a rubber band?",
+       correct: "It is flexible and stretchy", wrong: ["It was made on a Monday", "It belongs to a student", "It is somebody's least favorite item"],
+       hint: "Think about how the rubber band behaves when you pull on it.",
+       experiment: "🔍 Try this: Stretch a rubber band and describe what happens."},
+      {fact: "Properties can be measured with tools, like using a scale to measure weight.",
+       q: "Which property of an object could you measure using a scale?",
+       correct: "Its weight", wrong: ["Its name", "Its owner", "Its age in years"],
+       hint: "Think about what a scale is designed to measure.",
+       experiment: "🔍 Try this: If you have a scale, weigh two different objects and compare."},
+      {fact: "An object can have many properties at once, like being red, round, and smooth.",
+       q: "A tennis ball is described as 'fuzzy, round, and yellow-green.' What are these three examples of?",
+       correct: "Properties of the tennis ball", wrong: ["The ball's price", "The ball's owner", "The ball's location"],
+       hint: "These are all things you could observe just by looking at and touching the ball.",
+       experiment: "🔍 Try this: Describe an object using at least 3 different properties."}
+    ]
+  },
+  {
+    id: 'g3-A-2',
+    unit: 'A',
+    title: 'Compare properties of objects',
+    type: 'mcq',
+    pool: [
+      {fact: "Comparing properties means noticing how two objects are alike or different in observable ways.",
+       q: "A basketball and a golf ball are both round, but which property makes them DIFFERENT?",
+       correct: "Their size", wrong: ["Their roundness", "That they are both used in sports", "That they are both objects"],
+       hint: "Think about which one is much bigger.",
+       experiment: "🔍 Try this: Compare the size of a basketball and a golf ball, if you have both."},
+      {fact: "Two objects can share one property while differing in another.",
+       q: "A brick and a sponge are both rectangular, but which property is DIFFERENT?",
+       correct: "Their hardness (one is hard, one is soft)", wrong: ["Their shape", "That they are both objects", "That neither has any properties"],
+       hint: "Think about how each one feels when you squeeze it.",
+       experiment: "🔍 Try this: Compare how a sponge and a brick feel when pressed."},
+      {fact: "When scientists compare objects, they look at specific, measurable properties rather than opinions.",
+       q: "Which comparison uses PROPERTIES, not opinions?",
+       correct: "The metal spoon is heavier than the plastic spoon", wrong: ["The metal spoon is the best spoon", "The plastic spoon is boring", "The metal spoon should be thrown away"],
+       hint: "A property comparison is something everyone could observe the same way.",
+       experiment: "🔍 Try this: Compare two objects using only properties, no opinions."},
+      {fact: "Comparing properties helps us decide which object is better suited for a certain job.",
+       q: "If you needed to build a strong bridge, which property comparison would be most useful?",
+       correct: "Comparing the strength of different materials", wrong: ["Comparing which material is prettier", "Comparing which material is older", "Comparing which material smells better"],
+       hint: "Think about what actually matters for building something sturdy.",
+       experiment: "🔍 Try this: Think about why engineers compare material strength before building."}
+    ]
+  },
+  {
+    id: 'g3-A-3',
+    unit: 'A',
+    title: 'Compare properties of materials',
+    type: 'mcq',
+    pool: [
+      {fact: "Different materials have different properties, such as flexibility, hardness, and how well they conduct heat.",
+       q: "Which material is usually more FLEXIBLE — rubber or glass?",
+       correct: "Rubber", wrong: ["Glass", "They are equally flexible", "Neither is flexible"],
+       hint: "Think about a rubber band compared to a glass cup.",
+       experiment: "🔍 Try this: Try bending a rubber band, then imagine bending glass."},
+      {fact: "Metal generally conducts heat better than wood, which is why pot handles are often made of wood or plastic.",
+       q: "Why are pot handles often made of wood or plastic instead of metal?",
+       correct: "Metal gets hot quickly, but wood and plastic stay cooler", wrong: ["Wood and plastic are heavier", "Metal is too colorful", "Wood and plastic are more magnetic"],
+       hint: "Think about which material would burn your hand faster.",
+       experiment: "🔍 Try this: Notice how a metal spoon left in hot soup gets warm quickly."},
+      {fact: "Materials like glass and plastic can be transparent, letting light pass through clearly.",
+       q: "Which material property allows you to see clearly through a window?",
+       correct: "Transparency", wrong: ["Flexibility", "Magnetism", "Weight"],
+       hint: "Think about the word for 'see-through.'",
+       experiment: "🔍 Try this: Compare looking through a glass window and a wooden door."},
+      {fact: "Materials can be compared by their strength, or how much force they can withstand before breaking.",
+       q: "Which material is usually STRONGER — a paper towel or a steel beam?",
+       correct: "A steel beam", wrong: ["A paper towel", "They are equally strong", "Neither has any strength"],
+       hint: "Think about which one is used to build tall buildings.",
+       experiment: "🔍 Try this: Try tearing a paper towel, then think about trying to bend steel."}
+    ]
+  },
+  {
+    id: 'g3-A-4',
+    unit: 'A',
+    title: 'Identify materials in objects',
+    type: 'mcq',
+    pool: [
+      {fact: "Objects are often made of materials chosen for a specific reason, like glass for windows because it's transparent.",
+       q: "Why are windows usually made of glass instead of wood?",
+       correct: "Glass is transparent, so light can pass through", wrong: ["Glass is cheaper than everything else", "Wood cannot be cut into squares", "Glass is always softer than wood"],
+       hint: "Think about what you need a window to do — let light in!",
+       experiment: "🔍 Try this: Compare how much light passes through a glass window versus a wooden door."},
+      {fact: "A winter coat is usually made of thick fabric or fluffy insulation to trap warm air.",
+       q: "Why is a winter coat usually made of thick fabric?",
+       correct: "Thick fabric traps warm air to keep you warm", wrong: ["Thick fabric is always the cheapest option", "Thick fabric makes you run faster", "Thick fabric is always waterproof"],
+       hint: "Think about how the coat's material helps your body stay warm.",
+       experiment: "🔍 Try this: Feel the thickness of a winter coat versus a t-shirt."},
+      {fact: "Rubber is used for tires because it grips the road well and can absorb bumps.",
+       q: "Why are car tires usually made of rubber?",
+       correct: "Rubber grips the road and absorbs bumps", wrong: ["Rubber is the cheapest material available", "Rubber makes the car heavier", "Rubber is always shiny"],
+       hint: "Think about how tires need to interact with a bumpy road.",
+       experiment: "🔍 Try this: Press on a rubber ball and notice how it gives a little, then bounces back."},
+      {fact: "Metal is often used for cooking pots because it conducts (transfers) heat well.",
+       q: "Why are cooking pots often made of metal?",
+       correct: "Metal conducts heat well, so food cooks evenly", wrong: ["Metal is always the lightest material", "Metal is always the cheapest", "Metal never gets hot"],
+       hint: "Think about how the pot needs to transfer heat from the stove to your food.",
+       experiment: "🔍 Try this: Notice how quickly a metal pot heats up on a stove."}
+    ]
+  },
+  {
+    id: 'g3-A-5',
+    unit: 'A',
+    title: 'Identify multiple materials in objects',
+    type: 'sort',
+    pool: [
+      {prompt: "An umbrella is made of several materials. Tap all the materials used to build an umbrella.",
+       items: [{label:"🧵 Waterproof fabric",match:true},{label:"🔩 Metal frame",match:true},{label:"🪵 Wooden or plastic handle",match:true},{label:"🧊 Ice",match:false},{label:"🍞 Bread",match:false}],
+       hint:"Think about the canopy, the ribs, and the handle.", explanation:"An umbrella usually has waterproof fabric, a metal frame, and a plastic or wooden handle."},
+      {prompt: "A backpack is made of several materials. Tap all the materials used to build a backpack.",
+       items: [{label:"🧵 Nylon fabric",match:true},{label:"🤐 Metal zippers",match:true},{label:"🪢 Nylon straps",match:true},{label:"🪟 Glass",match:false},{label:"🪨 Stone",match:false}],
+       hint:"Think about the bag itself, the zippers, and the straps.", explanation:"A backpack usually has fabric, metal zippers, and strong straps."},
+      {prompt: "A guitar is made of several materials. Tap all the materials used to build a guitar.",
+       items: [{label:"🪵 Wood body",match:true},{label:"🪢 Metal or nylon strings",match:true},{label:"🔩 Metal tuning pegs",match:true},{label:"🍞 Bread",match:false},{label:"🧊 Ice",match:false}],
+       hint:"Think about the body, the strings, and the small parts that adjust the strings.", explanation:"A guitar usually has a wood body, strings made of metal or nylon, and metal tuning pegs."},
+      {prompt: "A pair of eyeglasses is made of several materials. Tap all the materials used to make eyeglasses.",
+       items: [{label:"🪟 Glass or plastic lenses",match:true},{label:"🔩 Metal or plastic frame",match:true},{label:"🧵 Tiny rubber nose pads",match:true},{label:"🪵 Wood",match:false},{label:"🧶 Yarn",match:false}],
+       hint:"Think about the lenses you look through and the frame that holds them.", explanation:"Eyeglasses usually have glass or plastic lenses, a metal or plastic frame, and small rubber nose pads."}
+    ]
+  },
+
+  // ===================== UNIT B: STATES OF MATTER =====================
+
+  {
+    id: 'g3-B-1',
+    unit: 'B',
+    title: 'Classify matter as solid, liquid, or gas',
+    type: 'sort',
+    pool: [
+      {prompt: "Tap all the examples that show matter in the SOLID state.",
+       items: [{label:"🧊 Ice cube",match:true},{label:"🌊 Ocean water",match:false},{label:"🪨 Rock",match:true},{label:"💨 Steam",match:false},{label:"📚 Book",match:true}],
+       hint:"Solids keep a definite shape and don't flow.", explanation:"Ice, rocks, and books are all solids because they hold their own shape."},
+      {prompt: "Tap all the examples that show matter in the LIQUID state.",
+       items: [{label:"🌊 Ocean water",match:true},{label:"🍯 Honey",match:true},{label:"🪨 Rock",match:false},{label:"💨 Steam",match:false},{label:"🧊 Ice",match:false}],
+       hint:"Liquids flow and take the shape of their container.", explanation:"Ocean water and honey are both liquids because they flow and take the shape of their containers."},
+      {prompt: "Tap all the examples that show matter in the GAS state.",
+       items: [{label:"💨 Steam",match:true},{label:"🎈 Air inside a balloon",match:true},{label:"🪨 Rock",match:false},{label:"🌊 Water",match:false},{label:"🧊 Ice",match:false}],
+       hint:"Gases spread out to fill their entire container and often can't be seen.", explanation:"Steam and the air in a balloon are both gases because they spread out to fill their space."},
+      {prompt: "Tap all the examples that show matter in the SOLID state.",
+       items: [{label:"🖍️ Crayon",match:true},{label:"🧃 Juice",match:false},{label:"🧱 Brick",match:true},{label:"💨 Wind",match:false},{label:"🍎 Apple",match:true}],
+       hint:"Solids don't flow and keep a definite shape.", explanation:"A crayon, a brick, and an apple are all solids."}
+    ]
+  },
+  {
+    id: 'g3-B-2',
+    unit: 'B',
+    title: 'Identify solids, liquids, and gases',
+    type: 'mcq',
+    pool: [
+      {fact: "A gas has no definite shape or volume — it spreads out to fill whatever space it's in.",
+       q: "Which state of matter has NO definite shape and spreads out to fill its container completely?",
+       correct: "Gas", wrong: ["Solid", "Liquid", "None of these"],
+       hint: "Think about how air fills up every corner of a room.",
+       experiment: "🔍 Try this: Blow up a balloon and notice how the air spreads out to fill it."},
+      {fact: "A solid has a definite shape and volume that doesn't change unless a force acts on it.",
+       q: "Which state of matter keeps a definite shape, even outside of a container?",
+       correct: "Solid", wrong: ["Liquid", "Gas", "None of these"],
+       hint: "Think about an object that doesn't need a container to hold its shape.",
+       experiment: "🔍 Try this: Notice how a book keeps its shape no matter where you put it."},
+      {fact: "A liquid has a definite volume but takes the shape of its container.",
+       q: "Which state of matter takes the shape of its container, but keeps the same total amount (volume)?",
+       correct: "Liquid", wrong: ["Solid", "Gas", "None of these"],
+       hint: "Think about pouring the same amount of water into different shaped cups.",
+       experiment: "🔍 Try this: Pour the same amount of water into two different shaped containers and compare."},
+      {fact: "Solids, liquids, and gases are the three most common states of matter you encounter every day.",
+       q: "Which is an example that shows all three states of matter — solid, liquid, and gas?",
+       correct: "Ice, water, and steam", wrong: ["Only ice and more ice", "A rock and a bigger rock", "Only air and more air"],
+       hint: "Think about water in its different forms.",
+       experiment: "🔍 Try this: Think about ice melting into water, then water boiling into steam."}
+    ]
+  },
+  {
+    id: 'g3-B-3',
+    unit: 'B',
+    title: 'Sort solids, liquids, and gases',
+    type: 'sort',
+    pool: [
+      {prompt: "Tap all the examples that are a GAS.",
+       items: [{label:"🌬️ Wind",match:true},{label:"💨 Steam from a kettle",match:true},{label:"🖍️ Crayon",match:false},{label:"🍯 Honey",match:false},{label:"🧱 Brick",match:false}],
+       hint:"Gases often cannot be seen and spread out to fill a space.", explanation:"Wind and steam are both gases."},
+      {prompt: "Tap all the examples that are a LIQUID.",
+       items: [{label:"🍯 Honey",match:true},{label:"🧃 Juice",match:true},{label:"🖍️ Crayon",match:false},{label:"🌬️ Wind",match:false},{label:"🧱 Brick",match:false}],
+       hint:"Liquids flow and take the shape of their container.", explanation:"Honey and juice are both liquids."},
+      {prompt: "Tap all the examples that are a SOLID.",
+       items: [{label:"🖍️ Crayon",match:true},{label:"🧱 Brick",match:true},{label:"🍯 Honey",match:false},{label:"🌬️ Wind",match:false},{label:"💨 Steam",match:false}],
+       hint:"Solids keep their own shape and don't flow.", explanation:"A crayon and a brick are both solids."},
+      {prompt: "Tap all the examples that are a GAS.",
+       items: [{label:"🎈 Air in a balloon",match:true},{label:"🫧 Bubbles' air inside",match:true},{label:"🧊 Ice cube",match:false},{label:"🌊 Ocean water",match:false},{label:"🪨 Rock",match:false}],
+       hint:"Gases fill up all the space inside their container.", explanation:"The air inside a balloon and inside a bubble are both gases."}
+    ]
+  },
+
+  // ===================== UNIT C: PHASE CHANGE =====================
+
+  {
+    id: 'g3-C-1',
+    unit: 'C',
+    title: 'Change-of-state diagrams: solid, liquid, and gas',
+    type: 'sequence',
+    pool: [
+      {prompt: "Put these steps in order to show ice changing all the way into water vapor.",
+       steps: ["🧊 Solid ice", "🔥 Heat is added, ice melts", "💧 Liquid water", "🔥 More heat is added, water evaporates", "💨 Water vapor (gas)"],
+       hint: "Ice melts first with heat, and then the liquid water can evaporate with more heat.",
+       explanation: "With enough heat, solid ice melts into liquid water, and then evaporates into water vapor gas."},
+      {prompt: "Put these steps in order to show water vapor changing all the way into ice.",
+       steps: ["💨 Water vapor (gas)", "❄️ It cools, vapor condenses", "💧 Liquid water", "❄️ It cools further and freezes", "🧊 Solid ice"],
+       hint: "Gas cools into liquid first, and then the liquid can freeze into a solid.",
+       explanation: "As water vapor cools, it condenses into liquid water, and then freezes into solid ice."},
+      {prompt: "Put these steps in order, starting with a solid stick of butter melting and evaporating on a very hot pan.",
+       steps: ["🧈 Solid butter", "🔥 Heat melts it", "🫗 Liquid butter", "🔥 Very high heat evaporates some of it", "💨 Vapor rising"],
+       hint: "Butter starts solid, becomes liquid when heated, and can even give off vapor at very high heat.",
+       explanation: "Butter melts from solid to liquid with heat, and at very high temperatures, some of it can evaporate into vapor."},
+      {prompt: "Put these steps in order, starting with steam from a pot cooling into ice on a very cold window.",
+       steps: ["💨 Steam (gas)", "❄️ It touches the cold window and condenses", "💧 Liquid water droplets", "❄️ It gets cold enough to freeze", "🧊 Ice on the window"],
+       hint: "Gas becomes liquid first when it touches something cold, and then the liquid can freeze.",
+       explanation: "Steam condenses into liquid water droplets on a cold surface, and if it's cold enough, the water freezes into ice."}
+    ]
+  },
+  {
+    id: 'g3-C-2',
+    unit: 'C',
+    title: 'Heating, cooling, and changes of state',
+    type: 'mcq',
+    pool: [
+      {fact: "Melting is when a solid changes into a liquid because of added heat.",
+       q: "What is it called when a solid changes into a liquid?",
+       correct: "Melting", wrong: ["Freezing", "Condensing", "Evaporating"],
+       hint: "Think about what happens to ice cream on a hot day.",
+       experiment: "🔍 Try this: Watch an ice cube melt and time how long it takes."},
+      {fact: "Evaporation is when a liquid changes into a gas because of added heat.",
+       q: "What is it called when a liquid changes into a gas?",
+       correct: "Evaporation", wrong: ["Freezing", "Melting", "Condensation"],
+       hint: "Think about a wet sidewalk drying up on a sunny day.",
+       experiment: "🔍 Try this: Wet a small spot on pavement and watch it dry up over time."},
+      {fact: "Condensation is when a gas changes into a liquid because it loses heat and cools down.",
+       q: "What is it called when a gas changes into a liquid?",
+       correct: "Condensation", wrong: ["Evaporation", "Melting", "Freezing"],
+       hint: "Think about water droplets forming on a cold glass.",
+       experiment: "🔍 Try this: Fill a glass with ice water and watch droplets form on the outside."},
+      {fact: "Freezing is when a liquid changes into a solid because it loses heat and cools down.",
+       q: "What is it called when a liquid changes into a solid?",
+       correct: "Freezing", wrong: ["Melting", "Evaporation", "Condensation"],
+       hint: "Think about what happens to water in a very cold freezer.",
+       experiment: "🔍 Try this: Put a small cup of water in the freezer and check it after a few hours."}
+    ]
+  },
+
+  // ===================== UNIT D: HEAT AND THERMAL ENERGY =====================
+
+  {
+    id: 'g3-D-1',
+    unit: 'D',
+    title: 'Predict heat flow',
+    type: 'mcq',
+    pool: [
+      {fact: "Heat always flows from a warmer object to a cooler one, until they reach the same temperature.",
+       q: "A warm metal spoon is placed in a glass of cold water. Which direction does heat flow?",
+       correct: "From the spoon into the water", wrong: ["From the water into the spoon", "Heat does not move", "In both directions equally forever"],
+       hint: "Heat always flows from warm objects to cool ones.",
+       experiment: "🔍 Try this: Place a warm spoon in cool water and feel how both change over time."},
+      {fact: "Two objects touching will keep exchanging heat until they reach the same temperature — this is called thermal equilibrium.",
+       q: "A hot rock is placed in cool water. What eventually happens to their temperatures?",
+       correct: "They become closer to the same temperature", wrong: ["The rock gets hotter and hotter forever", "The water instantly freezes", "Nothing changes at all"],
+       hint: "Heat flows from the rock to the water until they're more similar in temperature.",
+       experiment: "🔍 Try this: Put a sun-warmed rock into a bowl of cool water and feel both after a few minutes."},
+      {fact: "Touching a cold metal railing feels cold because heat flows out of your hand and into the railing.",
+       q: "Why does touching a cold metal railing make your hand feel cold?",
+       correct: "Heat flows from your hand into the railing", wrong: ["The railing sends 'cold' into your hand", "Nothing is happening", "Metal has no temperature"],
+       hint: "Remember, heat always flows from warm to cool — your hand is the warm one.",
+       experiment: "🔍 Try this: Touch something cold and notice how your hand feels afterward."},
+      {fact: "A drink with ice cubes cools down because heat flows out of the drink and into the colder ice.",
+       q: "Why does a warm drink get colder when you add ice cubes to it?",
+       correct: "Heat flows from the warm drink into the cold ice", wrong: ["The ice makes the drink disappear", "Heat flows from the ice into the drink", "Nothing happens to the temperature"],
+       hint: "The drink is warmer than the ice, so heat flows out of the drink.",
+       experiment: "🔍 Try this: Add ice to a warm drink and notice how it slowly cools down."}
+    ]
+  },
+  {
+    id: 'g3-D-2',
+    unit: 'D',
+    title: 'Predict temperature changes',
+    type: 'mcq',
+    pool: [
+      {fact: "When heat is added to an object, its temperature usually rises.",
+       q: "If you leave a cold can of soda out in the warm sun, what will happen to its temperature?",
+       correct: "It will rise (get warmer)", wrong: ["It will drop (get colder)", "It will stay exactly the same forever", "It will freeze"],
+       hint: "Think about heat flowing from the warm sun into the cold can.",
+       experiment: "🔍 Try this: Leave a cold drink out and check its temperature over time."},
+      {fact: "When heat is removed from an object, its temperature usually drops.",
+       q: "If you put a warm cup of soup in the refrigerator, what will happen to its temperature?",
+       correct: "It will drop (get colder)", wrong: ["It will rise (get warmer)", "It will stay exactly the same forever", "It will boil"],
+       hint: "Think about heat flowing out of the warm soup into the cold refrigerator.",
+       experiment: "🔍 Try this: Put a warm object in the fridge and check how it feels after an hour."},
+      {fact: "Two objects at different temperatures will move toward the same temperature when they touch or are near each other.",
+       q: "A hot cup of tea is left in a cool room. What will happen to the tea's temperature over time?",
+       correct: "It will slowly cool down toward room temperature", wrong: ["It will get hotter and hotter", "It will freeze instantly", "It will stay boiling hot forever"],
+       hint: "Heat flows from the hot tea into the cooler air until they're more similar.",
+       experiment: "🔍 Try this: Feel a hot drink now, then check it again in 20 minutes."},
+      {fact: "Objects placed in direct sunlight tend to warm up because they absorb energy from the sun.",
+       q: "If a dark rock sits in direct sunlight for an hour, what will likely happen to its temperature?",
+       correct: "It will rise", wrong: ["It will drop", "It will stay exactly the same", "It will freeze"],
+       hint: "Think about how dark surfaces absorb the sun's energy and warm up.",
+       experiment: "🔍 Try this: Touch a dark rock or pavement that's been in the sun — notice how warm it feels."}
+    ]
+  },
+  {
+    id: 'g3-D-3',
+    unit: 'D',
+    title: 'How is temperature related to thermal energy?',
+    type: 'mcq',
+    pool: [
+      {fact: "Thermal energy is the total energy of moving particles inside an object; temperature measures how fast those particles move on average.",
+       q: "What does temperature measure?",
+       correct: "How fast the particles in an object are moving, on average", wrong: ["How many particles an object has", "How much an object weighs", "How old an object is"],
+       hint: "Think about particles jiggling faster when something is hotter.",
+       experiment: "🔍 Try this: Think about how steam (fast-moving particles) feels hotter than ice (slow-moving particles)."},
+      {fact: "When something is heated, its particles move faster, which is why its temperature rises.",
+       q: "Why does an object's temperature rise when it is heated?",
+       correct: "Its particles start moving faster", wrong: ["Its particles disappear", "Its particles stop moving completely", "Nothing happens to its particles"],
+       hint: "Think about energy making tiny particles move more.",
+       experiment: "🔍 Try this: Think about how a pot of water bubbles and moves faster as it heats up."},
+      {fact: "A large pot of warm water can have more total thermal energy than a small cup of hotter water, because it has more moving particles overall.",
+       q: "Which usually has MORE total thermal energy — a bathtub full of warm water, or a small cup of hot water?",
+       correct: "The bathtub full of warm water (it has far more particles)", wrong: ["The small cup of hot water", "They always have the exact same energy", "Neither one has any thermal energy"],
+       hint: "Think about how many total particles are moving, not just how fast each one moves.",
+       experiment: "🔍 Try this: Think about why a full bathtub takes longer to cool down than a small cup."},
+      {fact: "Cooling an object down means its particles slow down, which is why its temperature drops.",
+       q: "What happens to an object's particles as it cools down?",
+       correct: "They slow down", wrong: ["They speed up", "They disappear completely", "They multiply"],
+       hint: "Think about the opposite of what happens when something heats up.",
+       experiment: "🔍 Try this: Think about how ice (very cold) has much slower-moving particles than boiling water."}
+    ]
+  },
+
+  // ===================== UNIT E: PHYSICAL AND CHEMICAL CHANGE =====================
+
+  {
+    id: 'g3-E-1',
+    unit: 'E',
+    title: 'Identify physical and chemical changes',
+    type: 'sort',
+    pool: [
+      {prompt: "Tap all the changes that are CHEMICAL changes (a new substance is formed).",
+       items: [{label:"🔥 Burning wood",match:true},{label:"🔩 Rusting metal",match:true},{label:"✂️ Cutting paper",match:false},{label:"🧊 Melting ice",match:false},{label:"🎂 Baking a cake",match:true}],
+       hint:"Chemical changes create a brand new substance that usually can't be changed back.", explanation:"Burning, rusting, and baking all create new substances — these are chemical changes."},
+      {prompt: "Tap all the changes that are PHYSICAL changes (same substance, different shape or state).",
+       items: [{label:"✂️ Cutting paper",match:true},{label:"🧊 Melting ice",match:true},{label:"🔥 Burning paper",match:false},{label:"🍳 Frying an egg",match:false},{label:"🫙 Crushing a soda can",match:true}],
+       hint:"Physical changes don't create a new substance.", explanation:"Cutting, melting, and crushing are physical changes because the material itself stays the same."},
+      {prompt: "Tap all the changes that are CHEMICAL changes.",
+       items: [{label:"🎆 Fireworks exploding",match:true},{label:"🍞 Toasting bread",match:true},{label:"🪵 Sawing a log",match:false},{label:"🧂 Dissolving sugar in water",match:false},{label:"🥚 Cooking an egg",match:true}],
+       hint:"Explosions, toasting, and cooking all create new substances.", explanation:"Fireworks, toasting, and cooking are chemical changes because they create new substances."},
+      {prompt: "Tap all the changes that are PHYSICAL changes.",
+       items: [{label:"🧂 Dissolving salt in water",match:true},{label:"🧊 Freezing water into ice",match:true},{label:"🔥 Burning a candle wick",match:false},{label:"🔩 Rusting a nail",match:false},{label:"🪵 Sawing wood",match:true}],
+       hint:"None of these create a new substance — they're just changing shape or state.", explanation:"Dissolving, freezing, and sawing are physical changes because no new substance is formed."}
+    ]
+  },
+  {
+    id: 'g3-E-2',
+    unit: 'E',
+    title: 'Compare physical and chemical changes',
+    type: 'mcq',
+    pool: [
+      {fact: "A physical change can usually be undone, but a chemical change usually cannot.",
+       q: "What is one key difference between a physical change and a chemical change?",
+       correct: "A physical change can often be undone, but a chemical change usually can't", wrong: ["Physical changes are always faster", "Chemical changes never involve heat", "There is no real difference"],
+       hint: "Think about freezing water (can melt back) versus burning paper (can't unburn it).",
+       experiment: "🔍 Try this: Freeze water into ice, then melt it back — that's reversible!"},
+      {fact: "In a chemical change, a completely new substance with new properties is formed.",
+       q: "How can you tell a chemical change happened, rather than just a physical change?",
+       correct: "A new substance with different properties is formed", wrong: ["The object got bigger", "The object moved to a new location", "Nothing at all changed"],
+       hint: "Think about how burned wood (ash) is completely different from the original wood.",
+       experiment: "🔍 Try this: Compare a piece of wood to a piece of ash — they are very different substances."},
+      {fact: "Melting and freezing are physical changes, while burning and rusting are chemical changes.",
+       q: "Which pair correctly shows one physical change and one chemical change?",
+       correct: "Melting ice (physical) and burning wood (chemical)", wrong: ["Melting ice and freezing water — both are chemical", "Burning wood and rusting metal — both are physical", "There is no way to tell them apart"],
+       hint: "Melting doesn't make a new substance, but burning does.",
+       experiment: "🔍 Try this: Think about which of your daily activities are physical vs chemical changes."},
+      {fact: "Signs of a chemical change include color change, bubbles, a new smell, or heat/light being given off.",
+       q: "Which of these is a sign that a CHEMICAL change might be happening?",
+       correct: "Bubbles forming and a new smell appearing", wrong: ["The object simply got smaller", "The object simply changed shape", "The object simply moved"],
+       hint: "Think about what happens when you mix baking soda and vinegar.",
+       experiment: "🔍 Try this: If you can, mix a little baking soda and vinegar and watch what happens!"}
+    ]
+  },
+
+  // ===================== UNIT F: MIXTURES =====================
+
+  {
+    id: 'g3-F-1',
+    unit: 'F',
+    title: 'Identify mixtures',
+    type: 'sort',
+    pool: [
+      {prompt: "A mixture combines two or more substances that each keep their own properties. Tap all the pictures that show a MIXTURE.",
+       items: [{label:"🥗 Salad",match:true},{label:"💧 A glass of plain water",match:false},{label:"🥜 Trail mix",match:true},{label:"🪙 A single coin",match:false},{label:"🍲 Vegetable soup",match:true}],
+       hint:"Look for pictures with more than one substance combined but each part still recognizable.", explanation:"A salad, trail mix, and soup are all mixtures because they combine different foods that keep their own identity."},
+      {prompt: "Tap all the pictures that show a MIXTURE.",
+       items: [{label:"🏖️ Sand mixed with seashells",match:true},{label:"💨 Air (a mix of different gases)",match:true},{label:"🪙 A single metal coin",match:false},{label:"💧 Pure water",match:false},{label:"🍫 Chocolate chip cookie dough",match:true}],
+       hint:"Even air is a mixture of gases like oxygen and nitrogen!", explanation:"Sand with shells, air, and cookie dough are all mixtures of different substances."},
+      {prompt: "Tap all the pictures that are NOT a mixture (a single pure substance).",
+       items: [{label:"💧 Pure water",match:true},{label:"🥗 Salad",match:false},{label:"🪙 A single gold coin",match:true},{label:"🥜 Trail mix",match:false},{label:"⚪ A pure sample of salt",match:true}],
+       hint:"These show just ONE substance, not several combined.", explanation:"Pure water, a single gold coin, and pure salt are not mixtures because they are just one substance."},
+      {prompt: "Tap all the pictures that show a MIXTURE.",
+       items: [{label:"🧺 A bowl of mixed nuts",match:true},{label:"🪨 A single rock",match:false},{label:"🍿 Popcorn mixed with candy",match:true},{label:"💧 Distilled (pure) water",match:false},{label:"🧦 A drawer of many different socks",match:true}],
+       hint:"Look for more than one kind of item combined together.", explanation:"Mixed nuts, popcorn with candy, and a drawer of different socks are all mixtures."}
+    ]
+  },
+
+  // ===================== UNIT G: FORCE AND MOTION =====================
+
+  {
+    id: 'g3-G-1',
+    unit: 'G',
+    title: 'Identify pushes and pulls',
+    type: 'sort',
+    pool: [
+      {prompt: "Tap all the actions that are a PUSH.",
+       items: [{label:"🛒 Pushing a shopping cart",match:true},{label:"⚽ Kicking a soccer ball",match:true},{label:"🎣 Reeling in a fish",match:false},{label:"🧗 Pulling yourself up a rope",match:false},{label:"🚪 Pushing open a door",match:true}],
+       hint:"A push moves an object away from you.", explanation:"Pushing a cart, kicking a ball, and pushing a door all send something away from you — that's a push."},
+      {prompt: "Tap all the actions that are a PULL.",
+       items: [{label:"🧲 A magnet pulling a paperclip",match:true},{label:"🏹 Pulling back a bowstring",match:true},{label:"🛒 Pushing a cart",match:false},{label:"⚽ Kicking a ball",match:false},{label:"🐕 Pulling a leash toward you",match:true}],
+       hint:"A pull moves an object toward you.", explanation:"A magnet pulling metal, pulling a bowstring, and pulling a leash all bring something closer — that's a pull."},
+      {prompt: "Tap all the actions that are a PUSH.",
+       items: [{label:"🎳 Rolling a bowling ball",match:true},{label:"🏋️ Pressing weights upward from your chest",match:true},{label:"🧲 A magnet pulling metal",match:false},{label:"🧳 Dragging a suitcase",match:false},{label:"🚗 Pushing a stuck car",match:true}],
+       hint:"Pushing sends an object away from your hands or body.", explanation:"Rolling a bowling ball, pressing weights, and pushing a car all move something away — that's a push."},
+      {prompt: "Tap all the actions that are a PULL.",
+       items: [{label:"🧳 Dragging a suitcase behind you",match:true},{label:"🪢 Pulling a rope in tug-of-war",match:true},{label:"⚽ Kicking a ball",match:false},{label:"🛒 Pushing a cart",match:false},{label:"🎣 Reeling in a fishing line",match:true}],
+       hint:"Pulling brings an object toward you.", explanation:"Dragging a suitcase, pulling a rope, and reeling in a fishing line all bring something closer — that's a pull."}
+    ]
+  },
+  {
+    id: 'g3-G-2',
+    unit: 'G',
+    title: 'How do balanced and unbalanced forces affect motion?',
+    type: 'mcq',
+    pool: [
+      {fact: "When forces on an object are balanced (equal in both directions), the object does not change its motion.",
+       q: "Two people push equally hard on opposite sides of a box, and it doesn't move. What kind of forces are acting on the box?",
+       correct: "Balanced forces", wrong: ["Unbalanced forces", "No forces at all", "Only one force"],
+       hint: "Equal forces pushing in opposite directions cancel each other out.",
+       experiment: "🔍 Try this: Have two people push equally on opposite sides of a light object and see what happens."},
+      {fact: "When forces on an object are unbalanced (one side stronger), the object will start moving, speed up, slow down, or change direction.",
+       q: "If one person pushes a box harder than another person pushing from the opposite side, what will happen?",
+       correct: "The box will move in the direction of the stronger push", wrong: ["The box will not move at all", "The box will explode", "The box will move in a random direction"],
+       hint: "The stronger force wins, causing the object to move that way.",
+       experiment: "🔍 Try this: Push a light object with different amounts of force from each side."},
+      {fact: "A book resting still on a table has balanced forces: gravity pulling down and the table pushing up equally.",
+       q: "A book sits perfectly still on a table. What can you say about the forces acting on it?",
+       correct: "The forces (gravity down, table pushing up) are balanced", wrong: ["There are no forces acting on it at all", "Only gravity is acting on it", "The forces are unbalanced"],
+       hint: "Even still objects have forces acting on them — they're just balanced.",
+       experiment: "🔍 Try this: Notice that a book stays still because the table pushes up just as much as gravity pulls down."},
+      {fact: "Unbalanced forces cause a change in an object's speed or direction, which is why a rolling ball slows down due to friction.",
+       q: "Why does a rolling ball eventually slow down and stop on the ground?",
+       correct: "An unbalanced force called friction acts against its motion", wrong: ["Balanced forces are keeping it perfectly still", "The ball loses its shape", "Gravity pushes it forward"],
+       hint: "Think about the rubbing force between the ball and the ground.",
+       experiment: "🔍 Try this: Roll a ball on a rug versus a smooth floor and notice which one stops faster."}
+    ]
+  },
+  {
+    id: 'g3-G-3',
+    unit: 'G',
+    title: 'How do mass and force affect motion?',
+    type: 'mcq',
+    pool: [
+      {fact: "It takes more force to speed up (accelerate) an object with more mass than one with less mass.",
+       q: "Which would take MORE force to push into motion — a shopping cart full of groceries or an empty one?",
+       correct: "A shopping cart full of groceries", wrong: ["An empty shopping cart", "They take the same amount of force", "Neither one needs any force"],
+       hint: "Think about which one is harder to get moving.",
+       experiment: "🔍 Try this: Try pushing a full backpack, then an empty one, and compare the effort."},
+      {fact: "With the same amount of force, an object with less mass will speed up more than an object with more mass.",
+       q: "If you push a bowling ball and a ping pong ball with the exact same force, which one will speed up MORE?",
+       correct: "The ping pong ball", wrong: ["The bowling ball", "They will speed up the same amount", "Neither will move"],
+       hint: "Think about which one has much less mass.",
+       experiment: "🔍 Try this: Compare how easily you can toss a ping pong ball versus a bowling ball."},
+      {fact: "A greater force applied to the same object will cause it to speed up more quickly.",
+       q: "If you push the same toy car with a gentle force, then with a strong force, what happens?",
+       correct: "The stronger push makes it speed up more quickly", wrong: ["The stronger push makes it slower", "Nothing changes either way", "The car stops moving"],
+       hint: "Think about pushing a swing gently versus pushing it hard.",
+       experiment: "🔍 Try this: Push a toy car gently, then push it hard, and compare how fast it goes."},
+      {fact: "Objects with more mass need more force to change their motion because they have more inertia.",
+       q: "Why is it harder to stop a moving truck than to stop a moving bicycle?",
+       correct: "The truck has much more mass, so it takes more force to stop", wrong: ["The truck is a brighter color", "The bicycle has more force", "There is no difference in difficulty"],
+       hint: "Think about how much more mass a truck has compared to a bike.",
+       experiment: "🔍 Try this: Think about why it takes a truck longer to brake to a stop than a bicycle."}
+    ]
+  },
+  {
+    id: 'g3-G-4',
+    unit: 'G',
+    title: 'Compare the speeds of moving objects',
+    type: 'mcq',
+    pool: [
+      {fact: "Speed is calculated by how much distance an object covers in a certain amount of time.",
+       q: "A car travels 60 miles in 1 hour, and a bicycle travels 10 miles in 1 hour. Which is FASTER?",
+       correct: "The car", wrong: ["The bicycle", "They are the same speed", "Neither is moving"],
+       hint: "The one that covers more distance in the same time is faster.",
+       experiment: "🔍 Try this: Compare how far you can walk versus run in the same amount of time."},
+      {fact: "If two objects travel the same distance, the one that takes LESS time is faster.",
+       q: "Runner A finishes a race in 10 seconds, and Runner B finishes the same race in 12 seconds. Who was FASTER?",
+       correct: "Runner A", wrong: ["Runner B", "They were the same speed", "Neither one finished"],
+       hint: "Taking less time to cover the same distance means moving faster.",
+       experiment: "🔍 Try this: Time yourself walking a set distance, then running the same distance."},
+      {fact: "We can compare speeds using math by dividing distance by time.",
+       q: "A snail moves 2 inches in 1 minute, and a turtle moves 20 inches in 1 minute. Which is FASTER?",
+       correct: "The turtle", wrong: ["The snail", "They move the same speed", "Neither is moving"],
+       hint: "Compare how much distance each one covers in the same amount of time.",
+       experiment: "🔍 Try this: Think about which animal would win a race between a snail and a turtle."},
+      {fact: "An object moving at a constant speed covers the same distance in every equal time interval.",
+       q: "A train travels 50 miles every hour, hour after hour. What does this describe?",
+       correct: "The train is moving at a constant (steady) speed", wrong: ["The train is speeding up constantly", "The train is slowing down constantly", "The train has stopped moving"],
+       hint: "Covering the same distance in each equal time period means the speed isn't changing.",
+       experiment: "🔍 Try this: Think about a car using cruise control to stay at the same steady speed."}
+    ]
+  },
+
+  // ===================== UNIT H: LIGHT =====================
+
+  {
+    id: 'g3-H-1',
+    unit: 'H',
+    title: 'How do we see objects?',
+    type: 'mcq',
+    pool: [
+      {fact: "We see objects because light bounces off of them and travels into our eyes.",
+       q: "How are we able to see an object, like a red apple?",
+       correct: "Light bounces off the apple and travels to our eyes", wrong: ["Our eyes send out light that touches the apple", "Objects glow on their own without any light", "We hear the object instead of seeing it"],
+       hint: "Think about light reflecting off the surface of the apple.",
+       experiment: "🔍 Try this: Notice that you cannot see anything in a completely dark room with no light at all."},
+      {fact: "In a completely dark room with no light source, we cannot see anything, because there is no light to bounce off objects.",
+       q: "Why can't you see anything in a room with absolutely no light?",
+       correct: "There is no light to bounce off objects and reach your eyes", wrong: ["Your eyes stop working in the dark", "Objects disappear in the dark", "Sound replaces light in the dark"],
+       hint: "Think about what's missing when there's no light source at all.",
+       experiment: "🔍 Try this: Notice how much harder it is to see in a very dim room compared to a bright one."},
+      {fact: "Some objects, like the sun or a lamp, make their own light. These are called light sources.",
+       q: "Which of these is a light SOURCE, meaning it makes its own light?",
+       correct: "The sun", wrong: ["A mirror", "A book", "A wall"],
+       hint: "Think about which of these actually produces light instead of just reflecting it.",
+       experiment: "🔍 Try this: Think of 3 objects that make their own light, like a lamp or a candle."},
+      {fact: "A mirror reflects light very well, which is why we can see a clear image of ourselves in it.",
+       q: "Why can you see your reflection clearly in a mirror?",
+       correct: "The mirror reflects light very well, bouncing it back to your eyes", wrong: ["The mirror creates a copy of you", "The mirror makes its own light", "Mirrors do not involve light at all"],
+       hint: "Think about how smooth, shiny surfaces bounce light back in an organized way.",
+       experiment: "🔍 Try this: Look at your reflection in a mirror and think about the light bouncing back to your eyes."}
+    ]
+  },
+  {
+    id: 'g3-H-2',
+    unit: 'H',
+    title: 'How does light travel and interact with matter?',
+    type: 'sort',
+    pool: [
+      {prompt: "Tap all the objects that light can pass THROUGH clearly (transparent).",
+       items: [{label:"🪟 Clear glass window",match:true},{label:"💧 Clean water",match:true},{label:"🧱 Brick wall",match:false},{label:"🪨 Rock",match:false},{label:"🪵 Wooden door",match:false}],
+       hint:"Transparent objects let light pass through so you can see clearly.", explanation:"Clear glass and clean water are transparent — light passes through them clearly."},
+      {prompt: "Tap all the objects that BLOCK light completely (opaque).",
+       items: [{label:"🧱 Brick wall",match:true},{label:"🪨 Rock",match:true},{label:"🪟 Clear glass",match:false},{label:"💧 Clean water",match:false},{label:"🧊 Ice",match:false}],
+       hint:"Opaque objects don't let any light pass through.", explanation:"A brick wall and a rock are opaque — they block light completely."},
+      {prompt: "Tap all the objects that light can bounce off well (reflective, shiny surfaces).",
+       items: [{label:"🪞 Mirror",match:true},{label:"🥄 Shiny metal spoon",match:true},{label:"🧶 Fuzzy wool sweater",match:false},{label:"🧱 Dull brick",match:false},{label:"🌊 Still, calm water",match:true}],
+       hint:"Smooth, shiny surfaces reflect light well, like a mirror.", explanation:"Mirrors, shiny spoons, and calm water all reflect light well."},
+      {prompt: "Tap all the objects that only let a LITTLE light through (translucent, blurry to see through).",
+       items: [{label:"🧻 Wax paper",match:true},{label:"🥛 Frosted glass",match:true},{label:"🪟 Clear window",match:false},{label:"🧱 Brick wall",match:false},{label:"🪨 Rock",match:false}],
+       hint:"Translucent objects are see-through but blurry — not perfectly clear.", explanation:"Wax paper and frosted glass are translucent, letting some light through but making things look blurry."}
+    ]
+  },
+
+  // ===================== UNIT I: ELECTRICITY =====================
+
+  {
+    id: 'g3-I-1',
+    unit: 'I',
+    title: 'Introduction to static electricity and charged objects',
+    type: 'mcq',
+    pool: [
+      {fact: "Static electricity happens when tiny charged particles build up on the surface of an object, often from rubbing two objects together.",
+       q: "What often causes static electricity to build up?",
+       correct: "Rubbing two objects together", wrong: ["Freezing two objects together", "Painting two objects together", "Washing two objects together"],
+       hint: "Think about rubbing a balloon on your hair.",
+       experiment: "🔍 Try this: Rub a balloon on your hair and see if it makes your hair stand up!"},
+      {fact: "Objects with opposite electric charges attract each other, while objects with the same charge repel.",
+       q: "What happens when two objects with OPPOSITE electric charges get close to each other?",
+       correct: "They attract (pull toward each other)", wrong: ["They repel (push apart)", "Nothing happens", "They both disappear"],
+       hint: "This works similarly to how opposite magnet poles attract.",
+       experiment: "🔍 Try this: Rub a balloon on your hair, then hold it near small bits of paper — watch them attract!"},
+      {fact: "A charged balloon can attract small bits of paper because of static electricity.",
+       q: "After rubbing a balloon on your hair, why can it pick up small bits of paper?",
+       correct: "It becomes charged with static electricity that attracts the paper", wrong: ["The balloon becomes sticky like glue", "The paper becomes magnetic", "It has nothing to do with electricity"],
+       hint: "Think about the charge that builds up from rubbing.",
+       experiment: "🔍 Try this: Rub a balloon on a wool sweater and hold it near tiny paper scraps."},
+      {fact: "Lightning is a dramatic natural example of a huge static electric charge being released between clouds and the ground.",
+       q: "What natural event is an example of a huge static electric discharge?",
+       correct: "Lightning", wrong: ["Rain", "Wind", "Fog"],
+       hint: "Think about the bright flash you see during a thunderstorm.",
+       experiment: "🔍 Fun fact: A single lightning bolt can be hotter than the surface of the sun!"}
+    ]
+  },
+
+  // ===================== UNIT J: MAGNETS =====================
+
+  {
+    id: 'g3-J-1',
+    unit: 'J',
+    title: 'Identify magnets that attract or repel',
+    type: 'mcq',
+    pool: [
+      {fact: "When the north pole of one magnet faces the south pole of another, the magnets attract.",
+       q: "A magnet's NORTH pole faces another magnet's SOUTH pole. What will happen?",
+       correct: "They will attract (pull together)", wrong: ["They will repel (push apart)", "Nothing will happen", "They will spin in circles"],
+       hint: "Remember: opposite poles attract.",
+       experiment: "🔍 Try this: If you have two magnets, flip one around to find the attracting orientation."},
+      {fact: "When the south pole of one magnet faces the south pole of another, the magnets repel.",
+       q: "Two magnets are placed with their SOUTH poles facing each other. What will happen?",
+       correct: "They will repel (push apart)", wrong: ["They will attract (pull together)", "Nothing will happen", "They will disappear"],
+       hint: "Remember: same poles repel.",
+       experiment: "🔍 Try this: Try pushing two magnets together the same-pole way and feel the push-back."},
+      {fact: "You can tell magnets will attract if you feel them pulling together when brought close.",
+       q: "You bring two magnets together and feel them PULL TOGETHER strongly. What does this tell you about their poles?",
+       correct: "The poles facing each other are opposite (one north, one south)", wrong: ["The poles facing each other are the same", "The magnets are broken", "The magnets have no poles"],
+       hint: "Pulling together means attracting, which happens with opposite poles.",
+       experiment: "🔍 Try this: Feel two magnets attract, then flip one around and feel them repel instead."},
+      {fact: "If two magnets push apart when brought close, their facing poles must be the same (both north or both south).",
+       q: "You bring two magnets together and feel them PUSH APART. What does this tell you?",
+       correct: "The poles facing each other are the same (both north or both south)", wrong: ["The poles facing each other are opposite", "The magnets are not real magnets", "This never actually happens"],
+       hint: "Pushing apart means repelling, which happens with matching poles.",
+       experiment: "🔍 Try this: Try to push two magnets together the wrong way and feel them resist."}
+    ]
+  },
+  {
+    id: 'g3-J-2',
+    unit: 'J',
+    title: 'Label magnets that attract or repel',
+    type: 'label',
+    pool: [
+      {prompt: "Two magnets are placed with their NORTH poles facing each other. What will happen?",
+       parts: [{name:"🧲 Attract (pull together)",correct:false},{name:"🧲 Repel (push apart)",correct:true}],
+       hint: "Remember: matching poles push away from each other.",
+       explanation: "Two north poles facing each other will repel, pushing the magnets apart."},
+      {prompt: "Two magnets are placed with a NORTH pole facing a SOUTH pole. What will happen?",
+       parts: [{name:"🧲 Attract (pull together)",correct:true},{name:"🧲 Repel (push apart)",correct:false}],
+       hint: "Remember: opposite poles pull toward each other.",
+       explanation: "A north pole facing a south pole will attract, pulling the magnets together."},
+      {prompt: "Two magnets are placed with their SOUTH poles facing each other. What will happen?",
+       parts: [{name:"🧲 Attract (pull together)",correct:false},{name:"🧲 Repel (push apart)",correct:true}],
+       hint: "Remember: matching poles push away from each other.",
+       explanation: "Two south poles facing each other will repel, pushing the magnets apart."},
+      {prompt: "Three magnets are lined up in a row: the first magnet's south pole faces the second magnet's north pole, and the second magnet's south pole faces the third magnet's north pole. What happens between each pair?",
+       parts: [{name:"🧲 All pairs attract",correct:true},{name:"🧲 All pairs repel",correct:false}],
+       hint: "In each pair, a south pole faces a north pole — that's the attracting arrangement.",
+       explanation: "Every pair in the row has opposite poles facing each other (south facing north), so all pairs attract."}
+    ]
+  },
+  {
+    id: 'g3-J-3',
+    unit: 'J',
+    title: 'Compare strengths of magnetic forces',
+    type: 'mcq',
+    pool: [
+      {fact: "Stronger magnets can attract objects from farther away or pick up heavier metal objects.",
+       q: "How could you tell if one magnet is STRONGER than another?",
+       correct: "It can attract objects from farther away or pick up heavier items", wrong: ["It is always a brighter color", "It is always bigger in size", "It weighs less than the other magnet"],
+       hint: "Think about testing how far away or how heavy an object a magnet can pull.",
+       experiment: "🔍 Try this: If you have two magnets, test which one can pick up more paperclips."},
+      {fact: "The strength of a magnetic force decreases the farther away you get from the magnet.",
+       q: "As you move a paperclip farther away from a magnet, what happens to the pull you feel?",
+       correct: "It gets weaker", wrong: ["It gets stronger", "It stays exactly the same", "It disappears immediately at any distance"],
+       hint: "Think about how the magnet's pull fades out over distance.",
+       experiment: "🔍 Try this: Slowly move a paperclip away from a magnet and notice when the pull stops."},
+      {fact: "Some materials, like thick cardboard, can weaken a magnet's pull if placed between the magnet and a metal object.",
+       q: "If you place a thick piece of cardboard between a magnet and a paperclip, what usually happens to the pull?",
+       correct: "The pull becomes weaker", wrong: ["The pull becomes much stronger", "The magnet stops being a magnet forever", "Nothing changes at all"],
+       hint: "Think about how a barrier could reduce the strength felt on the other side.",
+       experiment: "🔍 Try this: Test if a magnet can still pull a paperclip through a piece of paper or cardboard."},
+      {fact: "Scientists can compare magnet strength by counting how many paperclips each magnet can hold in a chain.",
+       q: "What is one way to fairly compare the strength of two different magnets?",
+       correct: "Count how many paperclips each magnet can hold in a chain", wrong: ["Compare their colors", "Compare how much they cost", "Compare their names"],
+       hint: "Think about a simple, fair test you could actually perform.",
+       experiment: "🔍 Try this: If you have two magnets, test how many paperclips each one can hold before the chain falls."}
+    ]
+  }
+];

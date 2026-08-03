@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🧪 Scout's Science Trail — Test Suite</title>
+<link rel="stylesheet" href="../style.css"/>
+<style>
+  /* Test-report-only styles, layered on top of the app's own stylesheet. */
+  #test-report{max-width:900px;margin:24px auto;font-family:'Segoe UI',sans-serif;}
+  #test-report h1{font-size:1.6rem;margin-bottom:4px;}
+  #test-report .sub{color:var(--ink-soft);margin-bottom:16px;}
+  #test-summary{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+  #test-summary .stat{background:var(--white);border:2px solid var(--paper-line);border-radius:14px;padding:10px 16px;font-weight:900;}
+  #test-summary .stat.pass{color:var(--good);border-color:var(--good);}
+  #test-summary .stat.fail{color:var(--bad);border-color:var(--bad);}
+  .cat-block{background:var(--white);border:2px solid var(--paper-line);border-radius:16px;padding:14px 18px;margin-bottom:14px;}
+  .cat-block h2{font-size:1.1rem;margin-bottom:8px;text-transform:capitalize;}
+  .suite-block{margin-bottom:10px;}
+  .suite-block h3{font-size:0.95rem;color:var(--ink-soft);margin-bottom:4px;}
+  .test-row{padding:4px 8px;border-radius:8px;font-size:0.9rem;font-family:monospace;}
+  .test-row.pass{color:var(--good);}
+  .test-row.fail{color:var(--bad);background:var(--bad-bg);}
+  .test-row .err{display:block;margin-left:20px;color:#933128;font-family:monospace;white-space:pre-wrap;}
+  #rerun-btn{margin-bottom:16px;}
+  /* Hide the real app screens entirely — runner.html reuses their markup
+     only so app.js's DOM lookups (getElementById, querySelectorAll) don't
+     throw, it never displays them. */
+  .wrap{display:none;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Real app markup, reused verbatim from index.html.
+     It stays hidden (see .wrap{display:none} above) — its only
+     purpose is to give app.js real DOM elements to operate on, since
+     the app was written without a virtual DOM or headless mode.
+     Keep this block in sync with index.html's <body> if that file's
+     screen structure ever changes.
+     ============================================================ -->
+<div class="wrap">
+
+<div class="topbar">
+  <div class="topbar-title"><span class="home-link" onclick="goHome()">🦊 Safia's Science Trail</span></div>
+  <div class="topbar-btns">
+    <button class="tb-btn" onclick="saveProgress()">💾 Save</button>
+    <button class="tb-btn" onclick="loadProgress()">📂 Load</button>
+    <input type="file" id="loadFile" accept=".json" style="display:none" onchange="loadFile(event)">
+  </div>
+  <div class="tb-lbl" id="saveLbl">⭐ 0 stars</div>
+</div>
+
+<div class="screen active" id="homeScreen">
+  <div class="home-hero">
+    <div class="hero-emoji">🦊🔬</div>
+    <h1>Scout's Science Trail</h1>
+    <p>Pick your grade and start exploring!</p>
+  </div>
+  <div class="grade-grid" id="gradeGrid"></div>
+</div>
+
+<div class="screen" id="gradeHomeScreen">
+  <div class="scout-bubble">
+    <div class="scout-avatar">🦊</div>
+    <div class="scout-text" id="scoutMsg">Hi Safia! Pick a trail to explore today!</div>
+  </div>
+  <div class="strand-grid" id="strandGrid"></div>
+  <div class="progress-dash" id="progressChart"></div>
+  <div class="btn-row" style="margin-top:16px">
+    <button class="btn btn-back" onclick="goHome()">← All Grades</button>
+  </div>
+</div>
+
+<div class="screen" id="strandScreen">
+  <div class="strand-head">
+    <div class="sh-icon" id="strandIcon">⚡</div>
+    <div class="sh-name" id="strandName">Physical Science</div>
+  </div>
+  <div class="unit-grid" id="unitGrid"></div>
+  <div class="btn-row">
+    <button class="btn btn-back" onclick="showGradeHome()">← Back to Trails</button>
+  </div>
+</div>
+
+<div class="screen" id="unitScreen">
+  <div class="trail-wrap">
+    <div class="trail-title" id="unitTitle">Animals</div>
+    <div class="trail-sub" id="unitSub">Tap a stop to play!</div>
+    <div class="trail-path" id="trailPath"></div>
+  </div>
+  <div class="btn-row" style="margin-top:14px">
+    <button class="btn btn-back" onclick="showStrand()">← Back to Units</button>
+  </div>
+</div>
+
+<div class="screen" id="quizScreen">
+  <div class="quiz-head">
+    <div class="quiz-meta">
+      <span id="quizLabel">Animals • What do animals need to survive?</span>
+      <span id="quizQNum">Q 1 / 5</span>
+    </div>
+    <div class="quiz-score-row">
+      <div class="qs-item"><div class="qs-label">✅ Correct</div><div class="qs-val" id="qsCorrect">0</div></div>
+      <div class="qs-item"><div class="qs-label">🤔 Try Again</div><div class="qs-val" id="qsWrong">0</div></div>
+      <div class="qs-item"><div class="qs-label">📊 Progress</div><div class="qs-val" id="qsAcc">—</div></div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+  <div class="q-card" id="qCard"></div>
+  <div class="hint-box" id="hintBox"></div>
+  <div class="feedback" id="feedback"></div>
+  <div class="explanation" id="explanation"></div>
+  <div class="btn-row">
+    <button class="btn btn-back" onclick="leaveQuiz()">🏠 Trail</button>
+    <button class="btn btn-hint" id="hintBtn" onclick="showHint()">💡 Friendly Hint</button>
+    <button class="btn btn-fun" id="funFactBtn" onclick="showFunFact()" style="display:none">🎉 Fun Fact</button>
+    <button class="btn btn-check" id="checkBtn" onclick="checkAnswer()">✅ Check</button>
+    <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">▶ Next</button>
+  </div>
+</div>
+
+<div class="screen" id="resultScreen">
+  <div class="result-card">
+    <div class="result-emoji" id="resEmoji">🏆</div>
+    <div class="result-title" id="resTitle">Great Job!</div>
+    <div class="result-pct" id="resPct">0%</div>
+    <div class="result-stars" id="resStars">⭐⭐⭐</div>
+    <div class="result-msg" id="resMsg"></div>
+    <div class="mistake-section" id="mistakeSection"></div>
+    <div class="btn-row" style="justify-content:center;margin-top:16px">
+      <button class="btn btn-back" id="retryBtn">🔁 Try Again</button>
+      <button class="btn btn-check" onclick="showUnitFromResult()">🗺️ Trail</button>
+      <button class="btn btn-next" id="nextLvBtn" style="display:none">➡ Next Skill</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end of reused app markup -->
+
+<!-- ============================================================
+     Visible test report
+     ============================================================ -->
+<div id="test-report">
+  <h1>🧪 Scout's Science Trail — Test Suite</h1>
+  <div class="sub">Running against the real app.js + data/*.js, in a real DOM. No build step, no server required.</div>
+  <button id="rerun-btn" class="tb-btn" onclick="runAndRender()">🔁 Re-run all tests</button>
+  <div id="test-summary">Running…</div>
+  <div id="test-details"></div>
+</div>
+<pre id="test-summary-json" style="display:none"></pre>
+
+<!-- ============================================================
+     App scripts — same load order as index.html
+     ============================================================ -->
+<script src="../data/g1-units.js"></script>
+<script src="../data/g1-physical.js"></script>
+<script src="../data/g1-life.js"></script>
+<script src="../data/g1-earth.js"></script>
+<script src="../data/g1-extra.js"></script>
+<script src="../data/g2-units.js"></script>
+<script src="../data/g2-physical.js"></script>
+<script src="../data/g2-life.js"></script>
+<script src="../data/g2-earth.js"></script>
+<script src="../data/g3-units.js"></script>
+<script src="../data/g3-physical.js"></script>
+<script src="../data/g3-life.js"></script>
+<script src="../data/g3-earth.js"></script>
+<script src="../app.js"></script>
+
+<!-- ============================================================
+     Test scripts
+     ============================================================ -->
+<script src="test-framework.js"></script>
+<script src="test-helpers.js"></script>
+<script src="unit.test.js"></script>
+<script src="integration.test.js"></script>
+<script src="regression.test.js"></script>
+
+<script>
+  // Optional ?category=unit|integration|regression to run a single suite category.
+  function categoryFromQuery() {
+    const params = new URLSearchParams(location.search);
+    const c = params.get('category');
+    return (c === 'unit' || c === 'integration' || c === 'regression') ? c : null;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, ch => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch]));
+  }
+
+  async function runAndRender() {
+    const summaryEl = document.getElementById('test-summary');
+    const detailsEl = document.getElementById('test-details');
+    summaryEl.textContent = 'Running…';
+    detailsEl.innerHTML = '';
+
+    const category = categoryFromQuery();
+    const { results, summary, byCategory } = await TF.run(category);
+
+    summaryEl.innerHTML = `
+      <div class="stat">Total: ${summary.total}</div>
+      <div class="stat pass">Passed: ${summary.passed}</div>
+      <div class="stat ${summary.failed ? 'fail' : 'pass'}">Failed: ${summary.failed}</div>
+      ${Object.keys(byCategory).map(cat => `<div class="stat">${cat}: ${byCategory[cat].passed}/${byCategory[cat].total}</div>`).join('')}
+    `;
+
+    // Group by category -> suite for readable output.
+    const grouped = {};
+    results.forEach(r => {
+      grouped[r.category] = grouped[r.category] || {};
+      grouped[r.category][r.suite] = grouped[r.category][r.suite] || [];
+      grouped[r.category][r.suite].push(r);
+    });
+
+    let html = '';
+    Object.keys(grouped).forEach(cat => {
+      const catResults = Object.values(grouped[cat]).flat();
+      const catFails = catResults.filter(r => r.status === 'fail').length;
+      html += `<div class="cat-block"><h2>${escapeHtml(cat)} (${catResults.length - catFails}/${catResults.length} passed)</h2>`;
+      Object.keys(grouped[cat]).forEach(suiteName => {
+        html += `<div class="suite-block"><h3>${escapeHtml(suiteName)}</h3>`;
+        grouped[cat][suiteName].forEach(r => {
+          html += `<div class="test-row ${r.status}">${r.status === 'pass' ? '✅' : '❌'} ${escapeHtml(r.test)}</div>`;
+          if (r.error) html += `<span class="err">${escapeHtml(r.error)}</span>`;
+        });
+        html += `</div>`;
+      });
+      html += `</div>`;
+    });
+    detailsEl.innerHTML = html;
+
+    // Machine-readable summary for headless consumption (e.g. scraping this
+    // element's text via a headless browser instead of parsing console output).
+    document.getElementById('test-summary-json').textContent = JSON.stringify({ summary, byCategory, results });
+
+    console.log(`[TF] ${summary.passed}/${summary.total} passed` + (summary.failed ? `, ${summary.failed} FAILED` : ''));
+    results.filter(r => r.status === 'fail').forEach(r => {
+      console.error(`[TF] FAIL [${r.category}] ${r.suite} > ${r.test}: ${r.error}`);
+    });
+
+    document.title = summary.failed ? `❌ ${summary.failed} failing — Test Suite` : `✅ All passing — Test Suite`;
+  }
+
+  window.addEventListener('load', runAndRender);
+</script>
+</body>
+</html>
