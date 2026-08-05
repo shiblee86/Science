@@ -218,7 +218,7 @@ function renderGradeGrid() {
 // GRADE HOME: strand select + progress
 // ============================================================
 const SCOUT_MESSAGES = [
-  "Hi Safia! Pick a trail to explore today!",
+  "Hi there! Pick a trail to explore today!",
   "Ready for an adventure? Choose a trail below!",
   "You're doing awesome — let's discover something new!",
   "Every skill you learn is a new stamp on our trail map!",

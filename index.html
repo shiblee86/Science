@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"/>
-<title>🦊 Safia's Science Trail</title>
+<title>🔬 Science for Safia &amp; Safaan</title>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -11,7 +11,7 @@
 
 <!-- Top Bar -->
 <div class="topbar">
-  <div class="topbar-title"><span class="home-link" onclick="goHome()">🦊 Safia's Science Trail</span></div>
+  <div class="topbar-title"><span class="home-link" onclick="goHome()">🔬 Science for Safia &amp; Safaan</span></div>
   <div class="topbar-btns">
     <button class="tb-btn" onclick="saveProgress()">💾 Save</button>
     <button class="tb-btn" onclick="loadProgress()">📂 Load</button>
@@ -23,9 +23,13 @@
 <!-- HOME SCREEN: choose grade -->
 <div class="screen active" id="homeScreen">
   <div class="home-hero">
-    <div class="hero-emoji">🦊🔬</div>
-    <h1>Scout's Science Trail</h1>
-    <p>Pick your grade and start exploring!</p>
+    <img class="hero-photo" src="assets/safia-safaan.jpg" alt="Safia and Safaan"/>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <div class="hero-kicker">🔬 Science Trail</div>
+      <h1>Science for Safia &amp; Safaan</h1>
+      <p>Pick your grade and start exploring!</p>
+    </div>
   </div>
   <div class="grade-grid" id="gradeGrid"></div>
 </div>
@@ -34,7 +38,7 @@
 <div class="screen" id="gradeHomeScreen">
   <div class="scout-bubble">
     <div class="scout-avatar">🦊</div>
-    <div class="scout-text" id="scoutMsg">Hi Safia! Pick a trail to explore today!</div>
+    <div class="scout-text" id="scoutMsg">Hi there! Pick a trail to explore today!</div>
   </div>
   <div class="strand-grid" id="strandGrid"></div>
   <div class="progress-dash" id="progressChart"></div>
